@@ -113,7 +113,7 @@ RectTransform:
   - {fileID: 3053352794865199506}
   - {fileID: 3053352795565908355}
   m_Father: {fileID: 3654121371573186323}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -237,12 +237,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBBF8\uC158 - \uBAA8\uB4E0 \uB3D9\uC804\uC744 \uC2B5\uB4DD\uD558\uB77C\n\n\uC870\uC791\uBC95\n\uC774\uB3D9
-    \t\u2191 \u2193 \u2190 \u2192\n\uB2EC\uB9AC\uAE30\tLeftShift(\uC2A4\uD0DC\uBBF8\uB098
-    \uC18C\uB7C9 \uC18C\uBAA8)\n\uB300\uC2DC \tLeftCtrl(\uC2A4\uD0DC\uBBF8\uB098
-    \uB300\uB7C9 \uC18C\uBAA8)\n\n\u203B\uC801\uC744 \uD5A5\uD574 \uB300\uC2DC \uC131\uACF5\uC2DC
-    \uC801 \uACF5\uACA9 \uAC00\uB2A5\n\u203B\uBE44\uC11D\uC5D0 \uB2E4\uAC00\uAC08
-    \uC2DC \uB2E4\uB978 \uBE44\uC11D\uC73C\uB85C \uC774\uB3D9"
+  m_Text: "\uB545\uC744 \uC6B0\uD074\uB9AD\uD558\uC5EC \uC774\uB3D9\uD560 \uC218
+    \uC788\uC2B5\uB2C8\uB2E4.\n\uC801\uC744 \uC6B0\uD074\uB9AD\uD558\uC5EC \uACF5\uACA9\uD560
+    \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n\n\uC544\uC774\uD15C\uC744 \uD68D\uB4DD\uB05D\uAE4C\uC9C0
+    \uC0B4\uC544\uB0A8\uC73C\uC138\uC694."
 --- !u!1 &3053352795565908354
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,86 +321,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\uD655\uC778\uD558\uC600\uC73C\uBA74 \uC5D4\uD130 \uD0A4\uB97C \uB204\uB974\uC138\uC694"
---- !u!1 &3053352795694817493
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3053352795694817494}
-  - component: {fileID: 3053352795694817496}
-  - component: {fileID: 3053352795694817495}
-  m_Layer: 5
-  m_Name: Mission
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &3053352795694817494
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3053352795694817493}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3654121371573186323}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 417.32935}
-  m_SizeDelta: {x: -1123.6427, y: -844.6587}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &3053352795694817496
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3053352795694817493}
-  m_CullTransparentMesh: 0
---- !u!114 &3053352795694817495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3053352795694817493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 48
-    m_FontStyle: 1
-    m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 48
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: "\uBAA8\uB4E0 \uB3D9\uC804\uC744 \uC2B5\uB4DD\uD558\uB77C!"
 --- !u!1 &3654121369886276720
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,7 +914,6 @@ RectTransform:
   - {fileID: 3654121371390339669}
   - {fileID: 3654121370217654629}
   - {fileID: 2169097493825038165}
-  - {fileID: 3053352795694817494}
   - {fileID: 3053352794781420002}
   m_Father: {fileID: 0}
   m_RootOrder: 0

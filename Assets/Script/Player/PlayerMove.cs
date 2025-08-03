@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent), typeof(CharacterController))]
+[RequireComponent(typeof(NavMeshAgent))]
 public class PlayerMove : MonoBehaviour
 {
     private NavMeshAgent agent;

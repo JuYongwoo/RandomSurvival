@@ -41,15 +41,7 @@ public class Enemy : MonoBehaviour, IAttackable
     {
 
         if(other.tag == "Player"){
-
-            if (isplayersprinting.Invoke())
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                hitplayer?.Invoke();
-            }
+            hitplayer?.Invoke();
         }
     }
 }

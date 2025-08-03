@@ -22,13 +22,12 @@ public class InputManager
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 100))
             {
-                GameObject root = hit.collider.transform.root.gameObject; //Enemy의 자식 collider를 누르고 root 인 Enemy를 공격하도록 한다.
-                IAttackable isTarget = root.GetComponentInParent<IAttackable>();
-                if (isTarget != null)
+                Transform root = hit.transform.root; //Enemy의 자식 collider를 누르고 root 인 Enemy를 공격하도록 한다.
+                if (root.GetComponentInParent<IAttackable>() != null)
                 {
-                    EnemyMouseAction(root);
+                    EnemyMouseAction(root.gameObject);
                 }
-                else
+                else //root에 IAttackable이 없으면 땅, 이동
                 {
                     GroundMouseAction(hit);
                 }

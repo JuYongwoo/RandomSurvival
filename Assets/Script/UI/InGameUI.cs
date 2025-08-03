@@ -12,7 +12,6 @@ public class InGameUI : MonoBehaviour
         HPBar,
         StaminaBar,
         Remaining,
-        Mission,
         HowToPlay
     }
     private Dictionary<UIName, GameObject> UIObjMap;

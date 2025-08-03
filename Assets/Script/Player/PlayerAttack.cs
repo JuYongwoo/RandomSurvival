@@ -19,8 +19,9 @@ public class PlayerAttack : MonoBehaviour
 
     private void TryAttackTarget(GameObject hit)
     {
-        moveStop();
-        animator.SetTrigger("Attack");
+        moveStop();//이동 멈춤
+        gameObject.transform.LookAt(hit.transform.position); //상대 바라본다
+        animator.SetTrigger("Attack"); //공격 모션
         GameObject particle = Instantiate(attackParticlePrefab, transform.position + Vector3.up * 1.2f, Quaternion.identity);
         particle.GetComponent<AttackParticle>().SetTarget(hit.transform);
         StartCoroutine(MoveParticleToTarget(particle, hit.transform.position));

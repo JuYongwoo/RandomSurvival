@@ -1,26 +1,36 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    private GameObject enemyprefab;
-    [SerializeField]
-    private GameObject[] spawnplace = new GameObject[3];
+    private GameObject enemyPrefab;
+    private List<GameObject> spawnPlace = new List<GameObject>();
 
     private void Awake()
     {
-        enemyprefab = Resources.Load<GameObject>("Prefabs/Enemy");
+        cacheChilds();
+        enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemy");
         StartCoroutine(spawnEnemy());
+    }
+
+    private void cacheChilds()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            spawnPlace.Add(transform.GetChild(i).gameObject);
+        }
     }
 
     private IEnumerator spawnEnemy()
     {
-        yield return new WaitForSeconds(5);
+        while (true)
+        {
+            yield return new WaitForSeconds(5);
 
-        GameObject go = Instantiate(enemyprefab);
-        Vector3 rd_position = spawnplace[Random.Range(0, 3)].transform.position;
-        go.transform.position = rd_position;
-
-        StartCoroutine(spawnEnemy());
+            GameObject go = Instantiate(enemyPrefab);
+            Vector3 rd_position = spawnPlace[Random.Range(0, spawnPlace.Count)].transform.position;
+            go.transform.position = rd_position;
+        }
     }
 }
