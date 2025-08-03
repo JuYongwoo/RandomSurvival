@@ -59,14 +59,7 @@ public class InGameUI : MonoBehaviour
 
         MainSceneObject.refreshUI += (coincount) =>
         {
-            if (coincount < 1)
-            {
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Win");
-            }
-            else
-            {
-                UIObjMap[UIName.Remaining].GetComponent<Text>().text = coincount + "개 남음";
-            }
+            UIObjMap[UIName.Remaining].GetComponent<Text>().text = coincount + "개 남음";
         };
 
     }

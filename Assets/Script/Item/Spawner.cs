@@ -1,28 +1,26 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
     private GameObject enemyprefab;
-    private float timer = 0f;
     [SerializeField]
     private GameObject[] spawnplace = new GameObject[3];
 
     private void Awake()
     {
         enemyprefab = Resources.Load<GameObject>("Prefabs/Enemy");
+        StartCoroutine(spawnEnemy());
     }
-    private void Update()
+
+    private IEnumerator spawnEnemy()
     {
-        timer += Time.deltaTime;
-        if(timer > 5f) {
-            GameObject go = Instantiate(enemyprefab);
-            Vector3 rd_position = spawnplace[Random.Range(0,3)].transform.position;
-            go.transform.position = rd_position;
+        yield return new WaitForSeconds(5);
 
-            timer = 0f;
+        GameObject go = Instantiate(enemyprefab);
+        Vector3 rd_position = spawnplace[Random.Range(0, 3)].transform.position;
+        go.transform.position = rd_position;
 
-        }
-
-        
+        StartCoroutine(spawnEnemy());
     }
 }

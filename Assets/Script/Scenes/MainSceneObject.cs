@@ -11,7 +11,8 @@ public class MainSceneObject : MonoBehaviour
     {
         Coin.coinGet = () => {
             remainingCoins -= 1;
-            refreshUI?.Invoke(remainingCoins);
+            refreshUI(remainingCoins);
+            if(remainingCoins <= 0) UnityEngine.SceneManagement.SceneManager.LoadScene("Win");
         };
     }
 
