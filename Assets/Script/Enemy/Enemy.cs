@@ -21,6 +21,8 @@ public class Enemy : MonoBehaviour, IAttackable
         target = GameObject.Find("Player");
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
+
+        //TODO 가까워지면 공격모션, 멀면 이동
     }
 
     private void Update()

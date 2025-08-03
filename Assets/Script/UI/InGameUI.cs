@@ -21,9 +21,12 @@ public class InGameUI : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        ManagerObject.input.ConfirmKeyAction = () =>
+        {
+            Time.timeScale = 1;
+            UIObjMap[UIName.HowToPlay].SetActive(false);
+        };
         mapDictionary();
-        
-
         otherActionMapping();
 
         UIObjMap[UIName.HowToPlay].SetActive(true);
@@ -64,12 +67,4 @@ public class InGameUI : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        if (UIObjMap[UIName.HowToPlay].activeSelf && Input.GetButtonDown("Submit"))
-        {
-            Time.timeScale = 1;
-            UIObjMap[UIName.HowToPlay].SetActive(false);
-        }
-    }
 }

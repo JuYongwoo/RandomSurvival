@@ -1,44 +1,29 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [Header("공격 설정")]
-    public float particleSpeed = 5f;
-
+    public static Action moveStop;
+    public float particleSpeed = 5f; //TODO basestat so 파일로 이동
     private Animator animator;
-
     private GameObject attackParticlePrefab;
 
     void Awake()
     {
+        ManagerObject.input.EnemyMouseAction = TryAttackTarget;
         animator = GetComponentInChildren<Animator>();
         attackParticlePrefab = Resources.Load<GameObject>("Prefabs/AttackParticle");
     }
 
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            TryAttackTarget();
-        }
-    }
 
-    private void TryAttackTarget()
+    private void TryAttackTarget(GameObject hit)
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
-        {
-            IAttackable target = hit.collider.GetComponentInParent<IAttackable>();
-            if (target != null)
-            {
-                animator.SetTrigger("Attack");
-
-                GameObject particle = Instantiate(attackParticlePrefab, transform.position + Vector3.up * 1.2f, Quaternion.identity);
-                particle.GetComponent<AttackParticle>().SetTarget(hit.collider.transform);
-                StartCoroutine(MoveParticleToTarget(particle, hit.collider.transform.position));
-            }
-        }
+        moveStop();
+        animator.SetTrigger("Attack");
+        GameObject particle = Instantiate(attackParticlePrefab, transform.position + Vector3.up * 1.2f, Quaternion.identity);
+        particle.GetComponent<AttackParticle>().SetTarget(hit.transform);
+        StartCoroutine(MoveParticleToTarget(particle, hit.transform.position));
     }
 
     private IEnumerator MoveParticleToTarget(GameObject particle, Vector3 targetPos)

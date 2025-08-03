@@ -18,6 +18,8 @@ public class PlayerMove : MonoBehaviour
 
     private void Awake()
     {
+        PlayerAttack.moveStop = () => { agent.destination = gameObject.transform.position; };
+        ManagerObject.input.GroundMouseAction = HandleClickInput;
         sprintsound = Resources.Load<AudioClip>("sprintsound");
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
@@ -34,7 +36,6 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        HandleClickInput();
         HandleSprintInput();
         RefreshStamina();
 
@@ -56,16 +57,9 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-    private void HandleClickInput()
+    private void HandleClickInput(RaycastHit hit)
     {
-        if (Input.GetMouseButtonDown(1))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, 100))
-            {
-                agent.SetDestination(hit.point);
-            }
-        }
+        agent.SetDestination(hit.point);
     }
 
     private void RefreshStamina()

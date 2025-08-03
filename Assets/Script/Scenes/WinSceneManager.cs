@@ -6,17 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class WinSceneManager : MonoBehaviour
 {
+    private Animator anim;
+    private void Awake()
+    {
+        anim = GameObject.Find("unitychan").GetComponent<Animator>();
+        ManagerObject.input.ConfirmKeyAction = () => { UnityEngine.SceneManagement.SceneManager.LoadScene("Title"); };
+    }
     private void Start()
     {
-        Animator anim = GameObject.Find("unitychan").GetComponent<Animator>();
         anim.SetBool("Win", true);
         anim.SetBool("Lose", false);
-        ManagerObject.input.ConfirmKeyAction -= Regame;
-        ManagerObject.input.ConfirmKeyAction += Regame;
-    }
 
-    void Regame()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
     }
 }
