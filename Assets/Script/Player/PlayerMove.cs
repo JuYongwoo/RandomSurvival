@@ -14,13 +14,19 @@ public class PlayerMove : MonoBehaviour
     private bool isSprintReady = true;
     private Coroutine sprintRoutine = null;
 
+    private GameObject moveMarkPrefab;
+    private GameObject currentMoveMark;
+
     public static Action<float> OnRefreshStaminaBar;
 
     private void Awake()
     {
         PlayerAttack.moveStop = () => { agent.destination = gameObject.transform.position; };
         ManagerObject.input.GroundMouseAction = HandleClickInput;
+
         sprintsound = Resources.Load<AudioClip>("sprintsound");
+        moveMarkPrefab = Resources.Load<GameObject>("Prefabs/MoveMark");
+
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
 
@@ -60,6 +66,17 @@ public class PlayerMove : MonoBehaviour
     private void HandleClickInput(RaycastHit hit)
     {
         agent.SetDestination(hit.point);
+
+        if (moveMarkPrefab != null)
+        {
+            if (currentMoveMark != null)
+                Destroy(currentMoveMark); // 기존 마커 제거
+
+            currentMoveMark = Instantiate(moveMarkPrefab, hit.point + Vector3.up * 0.1f, Quaternion.Euler(90, 0, 0));
+            MoveMark markComponent = currentMoveMark.GetComponent<MoveMark>();
+            if (markComponent != null)
+                markComponent.SetTarget(transform, agent);
+        }
     }
 
     private void RefreshStamina()
