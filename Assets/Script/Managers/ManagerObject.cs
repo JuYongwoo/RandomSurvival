@@ -32,7 +32,6 @@ public class ManagerObject : MonoBehaviour
 
     public static void Clear()
     {
-        input.Clear();
         pool.Clear();
     }
 }

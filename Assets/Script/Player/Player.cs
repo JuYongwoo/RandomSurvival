@@ -1,6 +1,19 @@
 ﻿using System;
 using UnityEngine;
 
+public enum PlayerState
+{
+    Idle,
+    MoveStart,
+    Moving,
+    AttackStart,
+    Attacking,
+    AttackMove_MoveStart,
+    AttackMove_Moving,
+    AttackMove_AttackStart,
+    AttackMove_Attacking
+
+}
 public class Player : MonoBehaviour
 {
     public static Action OnFaceDamaged;
@@ -8,8 +21,13 @@ public class Player : MonoBehaviour
 
     private AudioClip hitsound;
 
+    private Animator animator;
+
+
     private bool canWarp = true;
     private bool isDead = false;
+
+    private PlayerState state;
 
     private void Awake()
     {
@@ -19,7 +37,26 @@ public class Player : MonoBehaviour
         Teleport.warpOn = SetWarpable;
         Enemy.hitplayer = GetDamaged;
         Teleport.isplayerwarpready = () => canWarp;
+        PlayerMove.playerstate = () => state;
+        PlayerAttack.playerstate = () => state;
+        InputManager.setPlayerstate = setPlayerState;
+        PlayerMove.setPlayerstate = setPlayerState;
+        PlayerAttack.setPlayerstate = setPlayerState;
 
+
+        animator = GetComponentInChildren<Animator>();
+
+    }
+    private void setPlayerState(PlayerState s)
+    {
+        state = s;
+        Debug.Log("PlayerState = " + s);
+
+
+        int animState = (int)s;
+        if (animState >= 6) animState -= 4;
+        animator.SetInteger("State", animState);
+        
     }
 
 

@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour, IAttackable
 {
 
     public static Action hitplayer;
-    public static Func<bool> isplayersprinting;
     private GameObject target;
     private NavMeshAgent agent; //NavMeshAgent 컴포넌트 선언
     private Animator anim;

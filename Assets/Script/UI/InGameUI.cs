@@ -20,7 +20,7 @@ public class InGameUI : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        ManagerObject.input.ConfirmKeyAction = () =>
+        ManagerObject.input.Enter = () =>
         {
             Time.timeScale = 1;
             UIObjMap[UIName.HowToPlay].SetActive(false);

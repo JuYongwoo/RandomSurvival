@@ -6,7 +6,7 @@ public class WinSceneManager : MonoBehaviour
     private void Awake()
     {
         anim = GameObject.Find("unitychan").GetComponent<Animator>();
-        ManagerObject.input.ConfirmKeyAction = () => { UnityEngine.SceneManagement.SceneManager.LoadScene("Title"); };
+        ManagerObject.input.Enter = () => { UnityEngine.SceneManagement.SceneManager.LoadScene("Title"); };
     }
     private void Start()
     {
