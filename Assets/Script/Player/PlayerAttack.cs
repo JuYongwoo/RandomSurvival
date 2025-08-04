@@ -11,6 +11,7 @@ public class PlayerAttack : MonoBehaviour
     public static Func<PlayerState> playerstate;
     public static Action<PlayerState> setPlayerstate;
     private GameObject currentTarget;
+    private Coroutine attackingCoroutine;
 
     void Awake()
     {
@@ -26,24 +27,13 @@ public class PlayerAttack : MonoBehaviour
 
         if (state == PlayerState.AttackStart)
         {
-            if(currentTarget == null)
-            {
-                setPlayerstate(PlayerState.Idle);
-                return;
-            }
-            else
-            {
                 moveStop();
-                attack();
                 setPlayerstate(PlayerState.Attacking);
-            }
         }
         else if(state == PlayerState.Attacking)
         {
-            if(currentTarget == null)
-            {
-                setPlayerstate(PlayerState.Idle);
-            }
+            if(currentTarget == null) setPlayerstate(PlayerState.Idle);
+            if(attackingCoroutine == null) attackingCoroutine = StartCoroutine(attack());
         }
         else if(state == PlayerState.AttackMove_Moving)
         {
@@ -55,36 +45,26 @@ public class PlayerAttack : MonoBehaviour
             }
 
         }
-
         else if (state == PlayerState.AttackMove_AttackStart)
         {
-            if (currentTarget == null)
-            {
-                setPlayerstate(PlayerState.AttackMove_MoveStart);
-                return;
-            }
-            else
-            {
-                attack();
-                setPlayerstate(PlayerState.AttackMove_Attacking);
-            }
+            setPlayerstate(PlayerState.AttackMove_Attacking);
         }
         else if (state == PlayerState.AttackMove_Attacking)
         {
-            if (currentTarget == null)
-            {
-                setPlayerstate(PlayerState.AttackMove_MoveStart);
-            }
+            if (currentTarget == null) setPlayerstate(PlayerState.AttackMove_MoveStart);
+            if (attackingCoroutine == null) attackingCoroutine = StartCoroutine(attack());
         }
     }
 
-    private void attack()
+    private IEnumerator attack()
     {
 
         gameObject.transform.LookAt(currentTarget.transform.position); //상대 바라본다
         GameObject particle = Instantiate(attackParticlePrefab, transform.position + Vector3.up * 1.2f, Quaternion.identity);
         particle.GetComponent<AttackParticle>().SetTarget(currentTarget.transform);
         StartCoroutine(moveParticleToTarget(particle, currentTarget.transform.position));
+        yield return new WaitForSeconds(1f);
+        attackingCoroutine = null;
     }
 
 
