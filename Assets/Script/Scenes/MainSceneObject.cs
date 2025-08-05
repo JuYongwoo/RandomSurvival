@@ -3,25 +3,14 @@ using UnityEngine;
 
 public class MainSceneObject : MonoBehaviour
 {
-
-    public static int remainingCoins = -1;
-    public static event Action<int> refreshUI;
+    private AudioClip bgm;
 
     private void Awake()
     {
-        Coin.coinGet = () => {
-            remainingCoins -= 1;
-            refreshUI(remainingCoins);
-            if(remainingCoins <= 0) UnityEngine.SceneManagement.SceneManager.LoadScene("Win");
-        };
+        bgm = Resources.Load<AudioClip>("BGM");
     }
-
     private void Start()
     {
-
-        GameObject[] remainingcoinarray = GameObject.FindGameObjectsWithTag("Coin");
-        remainingCoins = remainingcoinarray.Length;
-        refreshUI(remainingCoins);
-
+        ManagerObject.am.PlayBGM(bgm);
     }
 }

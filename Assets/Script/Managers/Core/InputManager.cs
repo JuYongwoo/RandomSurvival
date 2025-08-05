@@ -19,7 +19,9 @@ public class InputManager
         if (Input.GetKeyDown(KeyCode.A))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, 100))
+            LayerMask mask = LayerMask.GetMask("Ground");
+
+            if (Physics.Raycast(ray, out RaycastHit hit, 100, mask))
             {
                 setDestination(hit.point);
                 setPlayerstate(PlayerState.AttackMove_MoveStart);
@@ -29,7 +31,8 @@ public class InputManager
         if (Input.GetMouseButtonDown(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, 100))
+            LayerMask mask = LayerMask.GetMask("EnemyClick", "Ground");
+            if (Physics.Raycast(ray, out RaycastHit hit, 100, mask))
             {
                 Transform parent = hit.transform; //Enemy의 자식 collider를 누르고 parent인 Enemy를 공격하도록 한다.
                 if (parent.GetComponentInParent<EnemyBase>() != null)

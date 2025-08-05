@@ -50,8 +50,18 @@ public class PlayerStateMachine : MonoBehaviour
     {
         var state = playerstate();
 
+        if (state == PlayerState.Idle)
+        {
+            List<GameObject> detectedEnemies = detectEnemies();
+            if (detectedEnemies.Count != 0)
+            {
+                GameObject closest = closestThing(detectedEnemies);
 
-        if (state == PlayerState.MoveStart)
+                currentTarget = closest;
+                setPlayerstate(PlayerState.Attack_Attacking);
+            }
+        }
+        else if (state == PlayerState.MoveStart)
         {
             moveStart(currendestination);
             setPlayerstate(PlayerState.Moving);
@@ -69,7 +79,15 @@ public class PlayerStateMachine : MonoBehaviour
         }
         else if (state == PlayerState.AttackStart) // 클릭 공격
         {
-            setPlayerstate(PlayerState.Attack_MoveStart);
+            if (attackingCoroutine == null && Vector3.Distance(transform.position, currentTarget.transform.position) <= 10f)
+            {
+                setPlayerstate(PlayerState.Attack_Attacking);
+            }
+            else
+            {
+
+                setPlayerstate(PlayerState.Attack_MoveStart);
+            }
         }
         else if (state == PlayerState.Attack_MoveStart) // 공격 대상으로 이동
         {
@@ -79,6 +97,7 @@ public class PlayerStateMachine : MonoBehaviour
         else if (state == PlayerState.Attack_Moving) //공격 대상으로 이동 중
         {
             moving();
+            if(currentTarget == null) setPlayerstate(PlayerState.Idle);
             if (attackingCoroutine == null && Vector3.Distance(transform.position, currentTarget.transform.position) <= 10f)
             {
                 moveStop();
@@ -148,7 +167,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         List<GameObject> detectedEnemies = new List<GameObject>();
 
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 10f, 1<<6);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5f, 1<<6);
 
         foreach (var collider in hitColliders)
         {

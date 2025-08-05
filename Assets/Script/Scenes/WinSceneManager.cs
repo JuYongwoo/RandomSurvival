@@ -10,6 +10,7 @@ public class WinSceneManager : MonoBehaviour
     }
     private void Start()
     {
+        ManagerObject.am.StopBGM();
         anim.SetBool("Win", true);
         anim.SetBool("Lose", false);
 

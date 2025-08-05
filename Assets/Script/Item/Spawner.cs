@@ -6,12 +6,21 @@ public class Spawner : MonoBehaviour
 {
     private GameObject enemyPrefab;
     private List<GameObject> spawnPlace = new List<GameObject>();
+    private bool isActive = false;
 
     private void Awake()
     {
         cacheChilds();
         enemyPrefab = Resources.Load<GameObject>("Prefabs/Enemy");
-        StartCoroutine(spawnEnemy());
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player") && !isActive)
+        {
+            isActive = true;
+            StartCoroutine(spawnEnemy());
+        }
     }
 
     private void cacheChilds()

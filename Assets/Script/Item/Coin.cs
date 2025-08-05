@@ -4,7 +4,6 @@ using UnityEngine;
 public class Coin : MonoBehaviour {
 
     private AudioClip coinsound;
-    public static Action coinGet;
 
     private void Awake()
     {
@@ -17,17 +16,11 @@ public class Coin : MonoBehaviour {
 
         if (!other.CompareTag("Player")) return;
 
-        PlaySoundDetached();
-        coinGet();
+        ManagerObject.am.PlaySound(coinsound);
 
         gameObject.SetActive(false);
     }
 
-    private void PlaySoundDetached()
-    {
-
-        ManagerObject.am.PlaySound(coinsound);
-    }
 
     private void Update()
     {

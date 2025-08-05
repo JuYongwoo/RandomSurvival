@@ -55,11 +55,6 @@ public class InGameUI : MonoBehaviour
         };
 
 
-        MainSceneObject.refreshUI += (coincount) =>
-        {
-            UIObjMap[UIName.Remaining].GetComponent<Text>().text = coincount + "°³ ³²À½";
-        };
-
     }
 
 }

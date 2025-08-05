@@ -10,6 +10,7 @@ public class LoseSceneManager : MonoBehaviour
     }
     private void Start()
     {
+        ManagerObject.am.StopBGM();
         anim.SetBool("Win", false);
         anim.SetBool("Lose", true);
         
