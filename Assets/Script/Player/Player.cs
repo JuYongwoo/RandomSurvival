@@ -7,10 +7,11 @@ public enum PlayerState
     MoveStart,
     Moving,
     AttackStart,
-    Attacking,
+    Attack_Attacking,
+    Attack_MoveStart,
+    Attack_Moving,
     AttackMove_MoveStart,
     AttackMove_Moving,
-    AttackMove_AttackStart,
     AttackMove_Attacking
 
 }
@@ -37,11 +38,9 @@ public class Player : MonoBehaviour
         Teleport.warpOn = SetWarpable;
         Enemy.hitplayer = GetDamaged;
         Teleport.isplayerwarpready = () => canWarp;
-        PlayerMove.playerstate = () => state;
-        PlayerAttack.playerstate = () => state;
+        PlayerStateMachine.playerstate = () => state;
+        PlayerStateMachine.setPlayerstate = setPlayerState;
         InputManager.setPlayerstate = setPlayerState;
-        PlayerMove.setPlayerstate = setPlayerState;
-        PlayerAttack.setPlayerstate = setPlayerState;
 
 
         animator = GetComponentInChildren<Animator>();
@@ -54,7 +53,10 @@ public class Player : MonoBehaviour
 
 
         int animState = (int)s;
-        if (animState >= 6) animState -= 4;
+        if (s == PlayerState.AttackMove_Moving || s == PlayerState.Attack_Moving) animState = (int)PlayerState.Moving;
+        if (s == PlayerState.AttackMove_Attacking) animState = (int)PlayerState.Attack_Attacking;
+
+
         animator.SetInteger("State", animState);
         
     }

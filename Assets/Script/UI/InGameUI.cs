@@ -54,10 +54,6 @@ public class InGameUI : MonoBehaviour
             UIObjMap[UIName.HPBar].GetComponent<Slider>().value = hp / 100 + 0.01f;
         };
 
-        PlayerMove.OnRefreshStaminaBar = (stm) =>
-        {
-            UIObjMap[UIName.StaminaBar].GetComponent<Slider>().value = stm / 100;
-        };
 
         MainSceneObject.refreshUI += (coincount) =>
         {
