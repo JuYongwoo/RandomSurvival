@@ -118,7 +118,9 @@ public class PlayerStateMachine : MonoBehaviour
             List<GameObject> detectedEnemies = detectEnemies();
             if (detectedEnemies.Count != 0)
             {
-                currentTarget = detectedEnemies[0];
+                GameObject closest = closestThing(detectedEnemies);
+
+                currentTarget = closest;
                 setPlayerstate(PlayerState.AttackMove_Attacking);
             }
 
@@ -150,7 +152,7 @@ public class PlayerStateMachine : MonoBehaviour
 
         foreach (var collider in hitColliders)
         {
-            GameObject enemy = collider.transform.root.gameObject;
+            GameObject enemy = collider.transform.gameObject;
             detectedEnemies.Add(enemy);
         }
 
@@ -196,5 +198,25 @@ public class PlayerStateMachine : MonoBehaviour
     {
         agent.destination = gameObject.transform.position;
         if (currentMoveMark != null) Destroy(currentMoveMark);
+    }
+
+    private GameObject closestThing(List<GameObject> gos)
+    {
+        GameObject closest = null;
+
+        float minSqrDistance = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+
+        foreach (var enemy in gos)
+        {
+            float sqrDist = (enemy.transform.position - currentPosition).sqrMagnitude;
+            if (sqrDist < minSqrDistance)
+            {
+                minSqrDistance = sqrDist;
+                closest = enemy;
+            }
+        }
+        return closest;
+
     }
 }

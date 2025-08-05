@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
         canWarp = true;
         CameraMove.playerPosition = () => { return gameObject.transform.position; };
         Teleport.warpOn = SetWarpable;
-        Enemy.hitplayer = GetDamaged;
+        EnemyBase.hitplayer = GetDamaged;
         Teleport.isplayerwarpready = () => canWarp;
         PlayerStateMachine.playerstate = () => state;
         PlayerStateMachine.setPlayerstate = setPlayerState;
@@ -67,11 +67,11 @@ public class Player : MonoBehaviour
         canWarp = enable;
     }
 
-    public void GetDamaged()
+    public void GetDamaged(float damage)
     {
         if (isDead) return;
 
-        ManagerObject.playerStatObj.playerCurrentStat.HP -= ManagerObject.playerStatObj.playerBaseStat.HitDamage;
+        ManagerObject.playerStatObj.playerCurrentStat.HP -= damage;
         OnFaceDamaged?.Invoke();
         OnRefreshHPBar?.Invoke(ManagerObject.playerStatObj.playerCurrentStat.HP);
 

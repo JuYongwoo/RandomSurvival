@@ -24,7 +24,7 @@ public class AttackParticle : MonoBehaviour
 
         if (Vector3.Distance(transform.position, target.position) < 0.2f)
         {
-            IAttackable attackable = target.GetComponentInParent<IAttackable>();
+            EnemyBase attackable = target.GetComponentInParent<EnemyBase>();
             if (attackable != null)
                 attackable.TakeDamage(damage);
 
