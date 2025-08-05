@@ -90,11 +90,14 @@ public class PlayerStateMachine : MonoBehaviour
         {
 
             if (currentTarget == null) setPlayerstate(PlayerState.Idle);
-            if (attackingCoroutine == null) attackingCoroutine = StartCoroutine(attack());
-            if (attackingCoroutine == null && Vector3.Distance(transform.position, currentTarget.transform.position) > 10f)
+            if (currentTarget != null)
             {
-                setPlayerstate(PlayerState.Attack_MoveStart); //적과의 거리가 다시 벌어졌으면 다시 적에게 이동
+                if (Vector3.Distance(transform.position, currentTarget.transform.position) > 10f)
+                {
+                    setPlayerstate(PlayerState.Attack_MoveStart); //적과의 거리가 다시 벌어졌으면 다시 적에게 이동
+                }
             }
+            if (attackingCoroutine == null) attackingCoroutine = StartCoroutine(attack());
         }
         else if (state == PlayerState.AttackMove_MoveStart)
         {
