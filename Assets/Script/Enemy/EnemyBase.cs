@@ -4,7 +4,8 @@ using UnityEngine;
 public class EnemyBase : MonoBehaviour
 {
     protected float hp;
-    protected float power;
+    [HideInInspector]
+    public float power;
     public static Action<float> hitplayer;
 
 

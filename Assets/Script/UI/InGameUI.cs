@@ -10,7 +10,6 @@ public class InGameUI : MonoBehaviour
     private enum UIName
     {
         HPBar,
-        StaminaBar,
         Remaining,
         HowToPlay
     }

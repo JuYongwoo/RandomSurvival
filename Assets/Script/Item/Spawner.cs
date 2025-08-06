@@ -37,9 +37,8 @@ public class Spawner : MonoBehaviour
         {
             yield return new WaitForSeconds(5);
 
-            GameObject go = Instantiate(enemyPrefab);
             Vector3 rd_position = spawnPlace[Random.Range(0, spawnPlace.Count)].transform.position;
-            go.transform.position = rd_position;
+            GameObject go = Instantiate(enemyPrefab, rd_position, Quaternion.identity);
         }
     }
 }

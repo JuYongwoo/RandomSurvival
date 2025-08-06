@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
 
 public class PlayerStateMachine : MonoBehaviour
 {
-    public float particleSpeed = 5f; //TODO basestat so 파일로 이동
+    public float particleSpeed = 5f;
     private GameObject attackParticlePrefab;
     public static Func<PlayerState> playerstate;
     public static Action<PlayerState> setPlayerstate;
     private GameObject currentTarget;
     private Coroutine attackingCoroutine;
+    private bool isAttacking = false;
 
     private NavMeshAgent agent;
 
@@ -24,12 +24,10 @@ public class PlayerStateMachine : MonoBehaviour
     void Awake()
     {
         attackParticlePrefab = Resources.Load<GameObject>("Prefabs/AttackParticle");
-
         moveMarkPrefab = Resources.Load<GameObject>("Prefabs/MoveMark");
 
         agent = GetComponent<NavMeshAgent>();
-
-        agent.speed = 0.01f; //position은 직접 처리, 회전 시 속도 저하를 없애기 위해
+        agent.speed = 0.01f;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.acceleration = 1000f;
@@ -37,154 +35,200 @@ public class PlayerStateMachine : MonoBehaviour
         agent.autoBraking = false;
         agent.stoppingDistance = 0f;
 
-        InputManager.setAttackTarget = (go) => {
-            currentTarget = go;
-        };
-        InputManager.setDestination = (dest) =>
-        {
-            currendestination = dest;
-        };
+        InputManager.setAttackTarget = go => currentTarget = go;
+        InputManager.setDestination = dest => currendestination = dest;
     }
 
     private void Update()
     {
         var state = playerstate();
 
-        if (state == PlayerState.Idle)
+        switch (state)
         {
-            List<GameObject> detectedEnemies = detectEnemies();
-            if (detectedEnemies.Count != 0)
-            {
-                GameObject closest = closestThing(detectedEnemies);
-
-                currentTarget = closest;
-                setPlayerstate(PlayerState.Attack_Attacking);
-            }
-        }
-        else if (state == PlayerState.MoveStart)
-        {
-            moveStart(currendestination);
-            setPlayerstate(PlayerState.Moving);
-
-        }
-        else if (state == PlayerState.Moving)
-        {
-            moving();
-            if (!agent.pathPending && agent.remainingDistance < 0.1f)
-            {
-                if (currentMoveMark != null) Destroy(currentMoveMark);
-                setPlayerstate(PlayerState.Idle);
-            }
-
-        }
-        else if (state == PlayerState.AttackStart) // 클릭 공격
-        {
-            if (attackingCoroutine == null && Vector3.Distance(transform.position, currentTarget.transform.position) <= 10f)
-            {
-                setPlayerstate(PlayerState.Attack_Attacking);
-            }
-            else
-            {
-
-                setPlayerstate(PlayerState.Attack_MoveStart);
-            }
-        }
-        else if (state == PlayerState.Attack_MoveStart) // 공격 대상으로 이동
-        {
-            moveStart(currentTarget.transform.position);
-            setPlayerstate(PlayerState.Attack_Moving);
-        }
-        else if (state == PlayerState.Attack_Moving) //공격 대상으로 이동 중
-        {
-            moving();
-            if(currentTarget == null) setPlayerstate(PlayerState.Idle);
-            if (attackingCoroutine == null && Vector3.Distance(transform.position, currentTarget.transform.position) <= 10f)
-            {
-                moveStop();
-                setPlayerstate(PlayerState.Attack_Attacking); //가까우면 멈추고 공격
-            }
-
-        }
-        else if (state == PlayerState.Attack_Attacking)
-        {
-
-            if (currentTarget == null) setPlayerstate(PlayerState.Idle);
-            if (currentTarget != null)
-            {
-                if (Vector3.Distance(transform.position, currentTarget.transform.position) > 10f)
+            case PlayerState.Idle:
+                var enemies = detectEnemies();
+                if (enemies.Count > 0)
                 {
-                    setPlayerstate(PlayerState.Attack_MoveStart); //적과의 거리가 다시 벌어졌으면 다시 적에게 이동
+                    currentTarget = GetClosestThreatEnemy(enemies).gameObject;
+                    setPlayerstate(PlayerState.Attack_Attacking);
                 }
-            }
-            if (attackingCoroutine == null) attackingCoroutine = StartCoroutine(attack());
-        }
-        else if (state == PlayerState.AttackMove_MoveStart)
-        {
-            moveStart(currendestination);
-            setPlayerstate(PlayerState.AttackMove_Moving);
+                break;
 
-        }
-        else if (state == PlayerState.AttackMove_Moving)
-        {
-            if (!agent.pathPending && agent.remainingDistance < 0.1f)
-            {
-                if (currentMoveMark != null) Destroy(currentMoveMark);
-                setPlayerstate(PlayerState.Idle);
-            }
+            case PlayerState.MoveStart:
+                moveStart(currendestination);
+                setPlayerstate(PlayerState.Moving);
+                break;
 
-            moving();
+            case PlayerState.Moving:
+                moving();
+                if (!agent.pathPending && agent.remainingDistance < 0.1f)
+                {
+                    Destroy(currentMoveMark);
+                    setPlayerstate(PlayerState.Idle);
+                }
+                break;
 
-            List<GameObject> detectedEnemies = detectEnemies();
-            if (detectedEnemies.Count != 0)
-            {
-                GameObject closest = closestThing(detectedEnemies);
+            case PlayerState.AttackStart:
+                Destroy(currentMoveMark);
+                if (currentTarget == null)
+                {
+                    setPlayerstate(PlayerState.Idle);
+                }
+                else if (isInAttackRange(currentTarget))
+                {
+                    setPlayerstate(PlayerState.Attack_Attacking);
+                }
+                else
+                {
+                    setPlayerstate(PlayerState.Attack_MoveStart);
+                }
+                break;
 
-                currentTarget = closest;
-                setPlayerstate(PlayerState.AttackMove_Attacking);
-            }
+            case PlayerState.Attack_MoveStart:
+                if (currentTarget == null)
+                {
+                    setPlayerstate(PlayerState.Idle);
+                }
+                else
+                {
+                    moveStart(currentTarget.transform.position);
+                    setPlayerstate(PlayerState.Attack_Moving);
+                }
+                break;
 
-        }
-        else if (state == PlayerState.AttackMove_Attacking)
-        {
-            if (currentTarget == null) setPlayerstate(PlayerState.AttackMove_MoveStart);
-            if (attackingCoroutine == null) attackingCoroutine = StartCoroutine(attack());
+            case PlayerState.Attack_Moving:
+                if (currentTarget == null)
+                {
+                    setPlayerstate(PlayerState.Idle);
+                    break;
+                }
+
+                moving();
+
+                if (isInAttackRange(currentTarget))
+                {
+                    stopMoving();
+                    setPlayerstate(PlayerState.Attack_Attacking);
+                }
+                break;
+
+            case PlayerState.Attack_Attacking:
+                if (currentTarget == null)
+                {
+                    setPlayerstate(PlayerState.Idle);
+                }
+                else if (!isInAttackRange(currentTarget))
+                {
+                    setPlayerstate(PlayerState.Attack_MoveStart);
+                }
+                else if (!isAttacking)
+                {
+                    attackingCoroutine = StartCoroutine(attack());
+                }
+                break;
+
+            case PlayerState.AttackMove_MoveStart:
+                moveStart(currendestination);
+                setPlayerstate(PlayerState.AttackMove_Moving);
+                break;
+
+            case PlayerState.AttackMove_Moving:
+                moving();
+
+                if (!agent.pathPending && agent.remainingDistance < 0.1f)
+                {
+                    Destroy(currentMoveMark);
+                    setPlayerstate(PlayerState.Idle);
+                }
+
+                var detected = detectEnemies();
+                if (detected.Count > 0)
+                {
+                    currentTarget = GetClosestThreatEnemy(detected).gameObject;
+                    setPlayerstate(PlayerState.AttackMove_Attacking);
+                }
+                break;
+
+            case PlayerState.AttackMove_Attacking:
+                if (currentTarget == null)
+                {
+                    setPlayerstate(PlayerState.AttackMove_MoveStart);
+                }
+                else if (!isAttacking)
+                {
+                    attackingCoroutine = StartCoroutine(attack());
+                }
+                break;
         }
     }
 
     private IEnumerator attack()
     {
+        isAttacking = true;
 
-        gameObject.transform.LookAt(currentTarget.transform.position); //상대 바라본다
+        transform.LookAt(currentTarget.transform.position);
+
         GameObject particle = Instantiate(attackParticlePrefab, transform.position + Vector3.up * 1.2f, Quaternion.identity);
         particle.GetComponent<AttackParticle>().SetTarget(currentTarget.transform);
         StartCoroutine(moveParticleToTarget(particle, currentTarget.transform.position));
+
         yield return new WaitForSeconds(1f);
-        attackingCoroutine = null;
+
+        isAttacking = false;
     }
 
-
-    public List<GameObject> detectEnemies()
+    public List<EnemyBase> detectEnemies()
     {
-        List<GameObject> detectedEnemies = new List<GameObject>();
-
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5f, 1<<6);
+        List<EnemyBase> detectedEnemies = new List<EnemyBase>();
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 10f, LayerMask.GetMask("EnemyClick"));
 
         foreach (var collider in hitColliders)
         {
-            GameObject enemy = collider.transform.gameObject;
-            detectedEnemies.Add(enemy);
+            detectedEnemies.Add(collider.gameObject.GetComponent<EnemyBase>());
         }
 
         return detectedEnemies;
     }
 
+    private EnemyBase GetClosestThreatEnemy(List<EnemyBase> enemies)
+    {
+        EnemyBase closestThreat = null;
+        EnemyBase closestAny = null;
+        float minThreatSqrDist = Mathf.Infinity;
+        float minAnySqrDist = Mathf.Infinity;
+        Vector3 origin = transform.position;
+
+        foreach (var enemy in enemies)
+        {
+            if (enemy == null) continue;
+
+            float sqrDist = (enemy.transform.position - origin).sqrMagnitude;
+
+            if (enemy.power > 0f && sqrDist < minThreatSqrDist)
+            {
+                minThreatSqrDist = sqrDist;
+                closestThreat = enemy;
+            }
+
+            if (sqrDist < minAnySqrDist)
+            {
+                minAnySqrDist = sqrDist;
+                closestAny = enemy;
+            }
+        }
+
+        return closestThreat ?? closestAny;
+    }
+
+
     private IEnumerator moveParticleToTarget(GameObject particle, Vector3 targetPos)
     {
         float threshold = 0.1f;
+
         while (particle != null && Vector3.Distance(particle.transform.position, targetPos) > threshold)
         {
-            Vector3 direction = (targetPos - particle.transform.position).normalized;
-            particle.transform.position += direction * particleSpeed * Time.deltaTime;
+            Vector3 dir = (targetPos - particle.transform.position).normalized;
+            particle.transform.position += dir * particleSpeed * Time.deltaTime;
             yield return null;
         }
 
@@ -194,48 +238,36 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void moveStart(Vector3 dest)
     {
-        agent.SetDestination(dest);
+        // 유효 y 높이 강제 적용
+        Vector3 navPos = new Vector3(dest.x, transform.position.y, dest.z);
+        agent.SetDestination(navPos);
 
         if (moveMarkPrefab != null)
         {
-
-            if (currentMoveMark != null)
-                Destroy(currentMoveMark); // 기존 마커 제거
-
-            currentMoveMark = Instantiate(moveMarkPrefab, dest + Vector3.up * 0.1f, Quaternion.Euler(90, 0, 0));
+            Destroy(currentMoveMark);
+            currentMoveMark = Instantiate(moveMarkPrefab, navPos + Vector3.up * 0.1f, Quaternion.Euler(90, 0, 0));
         }
     }
+
     private void moving()
     {
-
         Vector3 dir = agent.desiredVelocity.normalized;
-
-        transform.rotation = Quaternion.LookRotation(dir);
-        transform.position += dir * 10 * Time.deltaTime;
-    }
-    private void moveStop()
-    {
-        agent.destination = gameObject.transform.position;
-        if (currentMoveMark != null) Destroy(currentMoveMark);
-    }
-
-    private GameObject closestThing(List<GameObject> gos)
-    {
-        GameObject closest = null;
-
-        float minSqrDistance = Mathf.Infinity;
-        Vector3 currentPosition = transform.position;
-
-        foreach (var enemy in gos)
+        if (dir != Vector3.zero)
         {
-            float sqrDist = (enemy.transform.position - currentPosition).sqrMagnitude;
-            if (sqrDist < minSqrDistance)
-            {
-                minSqrDistance = sqrDist;
-                closest = enemy;
-            }
+            transform.rotation = Quaternion.LookRotation(dir);
+            transform.position += dir * 10 * Time.deltaTime;
         }
-        return closest;
+    }
 
+    private void stopMoving()
+    {
+        agent.destination = transform.position;
+        Destroy(currentMoveMark);
+    }
+
+    private bool isInAttackRange(GameObject target)
+    {
+        if (target == null) return false;
+        return (transform.position - target.transform.position).sqrMagnitude <= 100f;
     }
 }

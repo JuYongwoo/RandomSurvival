@@ -7,6 +7,6 @@ public class CameraMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position = new Vector3(playerPosition().x, playerPosition().y + 10, playerPosition().z - 5);
+        transform.position = new Vector3(playerPosition().x, playerPosition().y + 13, playerPosition().z - 10.25f);
     }
 }

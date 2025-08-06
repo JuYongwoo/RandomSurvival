@@ -22,6 +22,7 @@ public class ManagerObject : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         playerStatObj.OnAwake();
         am.onAwake();
+        input.OnAwake();
     }
     void Start()
     {
