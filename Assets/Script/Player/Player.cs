@@ -15,6 +15,15 @@ public enum PlayerState
     AttackMove_Attacking
 
 }
+
+public enum Weapons
+{
+    Hand,
+    Stone,
+    Magic,
+    Gun
+}
+
 public class Player : MonoBehaviour
 {
     public static Action OnFaceDamaged;
