@@ -14,7 +14,7 @@ public class TitleCanvas : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        titleCanvasMap = util.mapDictionary<TitleCanvasObjs>(this.gameObject);
+        titleCanvasMap = Util.mapDictionary<TitleCanvasObjs>(this.gameObject);
     }
 
 

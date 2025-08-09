@@ -16,7 +16,7 @@ public class StatPanel : MonoBehaviour
 
     private void Awake()
     {
-        statPanelmap = util.mapDictionary<StatPanelEnum>(this.gameObject);
+        statPanelmap = Util.mapDictionary<StatPanelEnum>(this.gameObject);
     }
 
     private void changeLv(int lv)

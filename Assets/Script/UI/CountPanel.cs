@@ -15,7 +15,7 @@ public class CountPanel : MonoBehaviour
 
     private void Awake()
     {
-        countPanelMap = util.mapDictionary<CountPanelEnum>(this.gameObject);
+        countPanelMap = Util.mapDictionary<CountPanelEnum>(this.gameObject);
         enemyCountTxt = countPanelMap[CountPanelEnum.EnemyCountTxt].GetComponent<Text>();
         EnemyBase.deltaEnemyCount = deltaEnemyCount;
     }

@@ -13,7 +13,7 @@ public class HowToPlay : MonoBehaviour
 
     private void Awake()
     {
-        HowToPlaymap = util.mapDictionary<PortraitPanelEnum>(this.gameObject);
+        HowToPlaymap = Util.mapDictionary<PortraitPanelEnum>(this.gameObject);
 
         Time.timeScale = 0;
         ManagerObject.input.Enter = () =>

@@ -16,7 +16,7 @@ public class PortraitPanel : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        PortraitPanelObjDict = util.mapDictionary<PortraitPanelObj>(this.gameObject);
+        PortraitPanelObjDict = Util.mapDictionary<PortraitPanelObj>(this.gameObject);
 
         otherActionMapping();
 

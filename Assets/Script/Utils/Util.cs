@@ -1,9 +1,31 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Util
 {
+    static public Dictionary<T, GameObject> mapDictionary<T>(GameObject go)
+    {
+        Dictionary<T, GameObject> dict = new Dictionary<T, GameObject>();
+
+        Transform[] children = go.GetComponentsInChildren<Transform>();
+
+        foreach (T enumName in Enum.GetValues(typeof(T)))
+        {
+            foreach (Transform child in children)
+            {
+                if (child.name == enumName.ToString())
+                {
+                    dict[enumName] = child.gameObject;
+                    break;
+                }
+            }
+        }
+
+        return dict;
+
+    }
     public static T GetOrAddComponent<T>(GameObject go) where T : UnityEngine.Component
     {
         T component = go.GetComponent<T>();
