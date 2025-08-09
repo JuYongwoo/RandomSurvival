@@ -4,19 +4,14 @@ using System.Collections;
 
 public class Wolf : EnemyBase
 {
-    private Animator anim;
     private NavMeshAgent agent;
     private Transform target;
 
-    private const float destinationUpdateInterval = 0.5f;
-    private Coroutine moveCoroutine;
-
     private void Awake()
     {
-        anim = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
 
-        GameObject player = GameObject.Find("Player");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
             target = player.transform;
 
@@ -24,34 +19,16 @@ public class Wolf : EnemyBase
         power = 10;
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        if (moveCoroutine == null)
-            moveCoroutine = StartCoroutine(UpdateDestination());
+        InvokeRepeating("UpdateDestination", 0.5f, 0.5f);
     }
 
-    private void OnDisable()
+
+    private void UpdateDestination()
     {
-        if (moveCoroutine != null)
-            StopCoroutine(moveCoroutine);
-        moveCoroutine = null;
-    }
 
-    private void Update()
-    {
-        anim.SetFloat("Speed", agent.velocity.magnitude);
-    }
-
-    private IEnumerator UpdateDestination()
-    {
-        WaitForSeconds wait = new WaitForSeconds(destinationUpdateInterval);
-
-        while (true)
-        {
-            if (target != null)
-                agent.SetDestination(target.position);
-
-            yield return wait;
-        }
+        if (target != null)
+            agent.SetDestination(target.position);
     }
 }

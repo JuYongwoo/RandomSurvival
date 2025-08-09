@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -19,7 +18,7 @@ public class Spawner : MonoBehaviour
         if (other.CompareTag("Player") && !isActive)
         {
             isActive = true;
-            StartCoroutine(spawnEnemy());
+            InvokeRepeating("spawnEnemy", 5f, 5f);
         }
     }
 
@@ -31,14 +30,9 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    private IEnumerator spawnEnemy()
+    private void spawnEnemy()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(5);
-
-            Vector3 rd_position = spawnPlace[Random.Range(0, spawnPlace.Count)].transform.position;
-            GameObject go = Instantiate(enemyPrefab, rd_position, Quaternion.identity);
-        }
+        Vector3 rd_position = spawnPlace[Random.Range(0, spawnPlace.Count)].transform.position;
+        GameObject go = Instantiate(enemyPrefab, rd_position, Quaternion.identity);
     }
 }
