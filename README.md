@@ -1,5 +1,9 @@
+![게임 스크린샷](https://github.com/JuYongWoo/RandomSurvival/blob/main/Images/ScreenShot.png)
+
+
 # 프로젝트 설명
-- 탑다운 뷰 형식의 간단한 게임입니다.
+- 현재 개발 중인 게임입니다.
+- 게임은 탑다운 뷰 형식으로 진행됩니다.
 - 이동 로직은 RTS 게임과 같도록 하였기 때문에 마우스 만으로도 플레이 가능합니다.
 - 30분 간 살아남는 것이 게임 승리 목표입니다.
 
