@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1687374650278405913}
   - component: {fileID: 1687374650278405915}
   - component: {fileID: 839877908729396079}
+  - component: {fileID: 2132681261265256465}
   - component: {fileID: 9016301580874293500}
   - component: {fileID: 3603004917405073131}
   - component: {fileID: 3331838619259566232}
@@ -62,6 +63,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleSpeed: 5
+  requestInterval: 0.35
+  targetMoveThreshold: 0.6
+  selfMoveThreshold: 0.6
+  attackParticlePrefab: {fileID: 0}
+  moveMarkPrefab: {fileID: 0}
+--- !u!114 &2132681261265256465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687374650278405916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 836a4f02bfdeb4e479e3d4880d444c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  disableDistance: 20
+  targetRenderers: []
 --- !u!195 &9016301580874293500
 NavMeshAgent:
   m_ObjectHideFlags: 0

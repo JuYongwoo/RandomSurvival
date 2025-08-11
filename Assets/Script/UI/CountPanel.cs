@@ -33,6 +33,7 @@ public class CountPanel : MonoBehaviour
 
     private void deltaEnemyCount(int delta)
     {
+        if (enemyCountTxt == null) return;
         enemyCount += delta;
         enemyCountTxt.text = "ÀûÀÇ ¼ö " + enemyCount;
     }

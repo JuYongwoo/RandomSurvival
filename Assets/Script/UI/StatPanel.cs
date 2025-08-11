@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static StatPanel;
 
 public class StatPanel : MonoBehaviour
 {
@@ -12,30 +13,59 @@ public class StatPanel : MonoBehaviour
         WeaponNameTxt,
         WeaponDmgTxt
     }
-    private Dictionary<StatPanelEnum, GameObject> statPanelmap;
+
+    public enum Weapons
+    {
+        Hand,
+        Bow,
+        Magic
+    }
+    private Dictionary<StatPanelEnum, GameObject> statPanelMap;
+    private Dictionary<Weapons, Sprite> weaponImgMap;
+    private Dictionary<Weapons, string> weaponNameMap;
+
 
     private void Awake()
     {
-        statPanelmap = Util.mapDictionary<StatPanelEnum>(this.gameObject);
+        statPanelMap = Util.mapDictionary<StatPanelEnum>(this.gameObject);
+        weaponImgMap = Util.mapDictionaryWithLoad<Weapons, Sprite>("Graphics/Textures");
+        weaponNameMap = new Dictionary<Weapons, string>
+        {
+            { Weapons.Hand, "맨손" },
+            { Weapons.Bow, "활" },
+            { Weapons.Magic, "마법" }
+        };
+    }
+    private void Start()
+    {
+        //playerstatManager에서 액션 호출로 변경해야함
+        changeWeaponImg(Weapons.Hand);
+        changeWeaponName(Weapons.Hand);
+        changeWeaponDmg(10);
     }
 
     private void changeLv(int lv)
     {
-        statPanelmap[StatPanelEnum.LvText].GetComponent<Text>().text = "Lv. "+ lv;
+        statPanelMap[StatPanelEnum.LvText].GetComponent<Text>().text = "Lv. "+ lv;
     }
     private void changeEXP(int currentEXP, int maxEXP)
     {
-        statPanelmap[StatPanelEnum.ExpText].GetComponent<Text>().text = "EXP "+ currentEXP + "/" + maxEXP;
+        statPanelMap[StatPanelEnum.ExpText].GetComponent<Text>().text = "EXP "+ currentEXP + "/" + maxEXP;
     }
     
     private void changeWeaponName(Weapons weaponName)
     {
-        statPanelmap[StatPanelEnum.WeaponNameTxt].GetComponent<Text>().text = weaponName.ToString();
+        go.GetComponent<Text>().text = weaponNameMap[weaponName];
 
     }
     private void changeWeaponDmg(int weaponDMG)
     {
-        statPanelmap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = weaponDMG.ToString();
+        statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = "데미지 " + weaponDMG.ToString();
+
+    }
+    private void changeWeaponImg(Weapons weaponIMG)
+    {
+        statPanelMap[StatPanelEnum.WeaponImg].GetComponent<Image>().sprite = weaponImgMap[weaponIMG];
 
     }
 }

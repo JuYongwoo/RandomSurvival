@@ -6,8 +6,8 @@ public class TitleCanvas : MonoBehaviour
 {
 
     private enum TitleCanvasObjs{
-        Start,
-        Quit
+        StartBtn,
+        QuitBtn
     }
     private Dictionary<TitleCanvasObjs, GameObject> titleCanvasMap;
 
@@ -20,11 +20,11 @@ public class TitleCanvas : MonoBehaviour
 
     private void Start()
     {
-        titleCanvasMap[TitleCanvasObjs.Start].GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => {
+        titleCanvasMap[TitleCanvasObjs.StartBtn].GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => {
             UnityEngine.SceneManagement.SceneManager.LoadScene("Main");
         });
 
-        titleCanvasMap[TitleCanvasObjs.Quit].GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => {
+        titleCanvasMap[TitleCanvasObjs.QuitBtn].GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => {
             Application.Quit();
         });
     }

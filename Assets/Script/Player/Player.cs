@@ -1,28 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public enum PlayerState
-{
-    Idle,
-    MoveStart,
-    Moving,
-    AttackStart,
-    Attack_Attacking,
-    Attack_MoveStart,
-    Attack_Moving,
-    AttackMove_MoveStart,
-    AttackMove_Moving,
-    AttackMove_Attacking
 
-}
-
-public enum Weapons
-{
-    Hand,
-    Stone,
-    Magic,
-    Gun
-}
 
 public class Player : MonoBehaviour
 {
@@ -37,38 +16,26 @@ public class Player : MonoBehaviour
     private bool canWarp = true;
     private bool isDead = false;
 
-    private PlayerState state;
 
     private void Awake()
     {
         hitsound = Resources.Load<AudioClip>("hitsound");
-        canWarp = true;
+        animator = GetComponentInChildren<Animator>();
         CameraMove.playerPosition = () => { return gameObject.transform.position; };
         Teleport.warpOn = SetWarpable;
         EnemyBase.hitplayer = GetDamaged;
         Teleport.isplayerwarpready = () => canWarp;
-        PlayerStateMachine.playerstate = () => state;
-        PlayerStateMachine.setPlayerstate = setPlayerState;
-        InputManager.setPlayerstate = setPlayerState;
+        PlayerStateMachine.animator = () => animator;
 
 
-        animator = GetComponentInChildren<Animator>();
 
     }
-    private void setPlayerState(PlayerState s)
+    private void Start()
     {
-        state = s;
-        Debug.Log("PlayerState = " + s);
+        canWarp = true;
 
-
-        int animState = (int)s;
-        if (s == PlayerState.AttackMove_Moving || s == PlayerState.Attack_Moving) animState = (int)PlayerState.Moving;
-        if (s == PlayerState.AttackMove_Attacking) animState = (int)PlayerState.Attack_Attacking;
-
-
-        animator.SetInteger("State", animState);
-        
     }
+
 
 
     private void SetWarpable(bool enable)
