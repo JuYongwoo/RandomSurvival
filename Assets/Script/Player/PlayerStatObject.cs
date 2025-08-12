@@ -16,7 +16,7 @@ public class PlayerBaseStat
     public float HitDamage;
 }
 
-    public class PlayerCurrentStat
+public class PlayerCurrentStat
     {
         public float HP;
         public float Stamina;

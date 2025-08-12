@@ -4,6 +4,7 @@ using UnityEngine;
 public class WeaponDataSO : ScriptableObject
 {
     public float BaseDamage;
+    public float UpgradeDamageDelta;
     public float FireRate;
     public float ReloadTime;
     public float Range;

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590ccc859137f6347aa85f5863327ba9, type: 3}
   m_Name: Magic
   m_EditorClassIdentifier: 
-  BaseDamage: 0
+  BaseDamage: 15
+  UpgradeDamageDelta: 5
   FireRate: 0
-  ReloadTime: 0
-  Range: 0
-  BulletSpeed: 0
+  ReloadTime: 0.1
+  Range: 10
+  BulletSpeed: 10
   FireSound: {fileID: 0}
   EffectPrefab: {fileID: 0}
