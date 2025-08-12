@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static StatPanel;
 
 public class StatPanel : MonoBehaviour
 {
@@ -53,6 +52,9 @@ public class StatPanel : MonoBehaviour
             { Weapons.Bow,   new WeaponInfo("È°",   weaponImgMap[Weapons.Bow],   15) },
             { Weapons.Magic, new WeaponInfo("¸¶¹ý", weaponImgMap[Weapons.Magic], 20) },
         };
+
+
+        PlayerStatObject.OnRefreshEXPUI = changeEXP;
     }
     private void Start()
     {

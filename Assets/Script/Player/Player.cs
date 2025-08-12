@@ -6,15 +6,14 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Action OnFaceDamaged;
-    public static Action<float> OnRefreshHPBar;
 
     private AudioClip hitsound;
 
     private Animator animator;
 
+    static public Action<float> deltaHP;
 
     private bool canWarp = true;
-    private bool isDead = false;
 
 
     private void Awake()
@@ -45,19 +44,13 @@ public class Player : MonoBehaviour
 
     public void GetDamaged(float damage)
     {
-        if (isDead) return;
 
-        ManagerObject.playerStatObj.playerCurrentStat.HP -= damage;
+        deltaHP(-damage);
         OnFaceDamaged?.Invoke();
-        OnRefreshHPBar?.Invoke(ManagerObject.playerStatObj.playerCurrentStat.HP);
 
         ManagerObject.am.PlaySound(hitsound);
 
-        if (ManagerObject.playerStatObj.playerCurrentStat.HP <= 0f)
-        {
-            isDead = true;
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Lose");
-        }
+
     }
 
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public class PlayerBaseStat
 {
@@ -19,7 +20,8 @@ public class PlayerBaseStat
     {
         public float HP;
         public float Stamina;
-    }
+        public int EXP;
+}
 public class PlayerStatObject
 {
 
@@ -28,6 +30,8 @@ public class PlayerStatObject
 
     public PlayerCurrentStat playerCurrentStat = new PlayerCurrentStat();
 
+    public static Action<float> OnRefreshHPBar;
+    public static Action<int> OnRefreshEXPUI;
 
     public void OnAwake() // SO파일 PlayerData를 로드하고 게임에 필요한 플레이어 베이스스탯을 가져온다.
     {
@@ -48,5 +52,24 @@ public class PlayerStatObject
 
         playerCurrentStat.HP = playerBaseStat.MaxHP;
         playerCurrentStat.Stamina = playerBaseStat.MaxStamina;
+
+
+        Player.deltaHP = deltaHP;
+        EnemyBase.deltaPlayerEXP = deltaEXP;
+    }
+
+    public void deltaHP(float delta)
+    {
+        playerCurrentStat.HP += delta;
+        OnRefreshHPBar?.Invoke(playerCurrentStat.HP);
+        if (playerCurrentStat.HP <= 0f)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Lose");
+        }
+    }
+    public void deltaEXP(int delta)
+    {
+        playerCurrentStat.EXP += delta;
+        OnRefreshEXPUI?.Invoke(playerCurrentStat.EXP);
     }
 }

@@ -7,9 +7,11 @@ public class EnemyBase : MonoBehaviour
     protected float hp;
     [HideInInspector]
     public float power;
+    public int EXP;
     protected Transform player;
     public static Action<float> hitplayer;
     static public Action<int> deltaEnemyCount;
+    public static Action<int> deltaPlayerEXP;
 
     // NavMeshAgent 관련
     protected NavMeshAgent agent;
@@ -83,6 +85,9 @@ public class EnemyBase : MonoBehaviour
     protected virtual void OnDestroy()
     {
         if (GetType() != typeof(Gate))
+        {
             deltaEnemyCount?.Invoke(-1);
+            deltaPlayerEXP?.Invoke(EXP);
+        }
     }
 }

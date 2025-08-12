@@ -9,6 +9,7 @@ public class Wolf : EnemyBase
 
 
         hp = 100;
-        power = 0;
+        power = 10;
+        EXP= 10;
     }
 }

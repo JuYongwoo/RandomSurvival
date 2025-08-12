@@ -8,6 +8,7 @@ public class PortraitPanel : MonoBehaviour
     private enum PortraitPanelObj
     {
         HPBar,
+        HPTxt,
         Remaining
     }
     private Dictionary<PortraitPanelObj, GameObject> PortraitPanelObjDict;
@@ -23,9 +24,10 @@ public class PortraitPanel : MonoBehaviour
     }
     private void otherActionMapping()
     {
-        Player.OnRefreshHPBar = (hp) =>
+        PlayerStatObject.OnRefreshHPBar = (hp) =>
         {
             PortraitPanelObjDict[PortraitPanelObj.HPBar].GetComponent<Slider>().value = hp / 100 + 0.01f;
+            PortraitPanelObjDict[PortraitPanelObj.HPTxt].GetComponent<Text>().text = (int)hp + "/100";
         };
 
 
