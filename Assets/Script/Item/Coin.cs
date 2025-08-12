@@ -16,7 +16,7 @@ public class Coin : MonoBehaviour {
 
         if (!other.CompareTag("Player")) return;
 
-        ManagerObject.am.PlaySound(coinsound);
+        ManagerObject.am.PlaySound(AudioManager.Sounds.coinsound);
 
         gameObject.SetActive(false);
     }

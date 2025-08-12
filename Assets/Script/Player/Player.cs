@@ -7,8 +7,6 @@ public class Player : MonoBehaviour
 {
     public static Action OnFaceDamaged;
 
-    private AudioClip hitsound;
-
     private Animator animator;
 
     static public Action<float> deltaHP;
@@ -18,7 +16,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        hitsound = Resources.Load<AudioClip>("hitsound");
         animator = GetComponentInChildren<Animator>();
         CameraMove.playerPosition = () => { return gameObject.transform.position; };
         Teleport.warpOn = SetWarpable;
@@ -48,7 +45,7 @@ public class Player : MonoBehaviour
         deltaHP(-damage);
         OnFaceDamaged?.Invoke();
 
-        ManagerObject.am.PlaySound(hitsound);
+        ManagerObject.am.PlaySound(AudioManager.Sounds.hitsound);
 
 
     }

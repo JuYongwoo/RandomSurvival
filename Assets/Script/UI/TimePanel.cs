@@ -14,7 +14,7 @@ public class TimePanel : MonoBehaviour
 
     private void Awake()
     {
-        TimePanelmap = Util.mapDictionary<TimePanelEnum>(this.gameObject);
+        TimePanelmap = Util.mapDictionaryInChildren<TimePanelEnum, GameObject>(this.gameObject);
         InvokeRepeating("flowTime", 1f, 1f);
     }
     void Start()

@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca7144a1100769d4c90678cb35fec783, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d3f6360f90fa444b84b7207f3702a26, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   BaseMoveSpeed: 5
-  SprintBonusSpeed: 15
+  SprintSpeed: 0
   RotationSpeed: 360
   RunSpeed: 10
   MaxStamina: 100

@@ -35,7 +35,7 @@ public class PlayerStatObject
 
     public void OnAwake() // SO파일 PlayerData를 로드하고 게임에 필요한 플레이어 베이스스탯을 가져온다.
     {
-        PlayerData pd = Resources.Load<PlayerData>("GameData/PlayerData");
+        PlayerDataSO pd = Resources.Load<PlayerDataSO>("GameData/Player/PlayerData");
 
         playerBaseStat.BaseMoveSpeed = pd.BaseMoveSpeed;
         playerBaseStat.SprintSpeed = pd.SprintSpeed;
@@ -64,7 +64,7 @@ public class PlayerStatObject
         OnRefreshHPBar?.Invoke(playerCurrentStat.HP);
         if (playerCurrentStat.HP <= 0f)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Lose");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
         }
     }
     public void deltaEXP(int delta)

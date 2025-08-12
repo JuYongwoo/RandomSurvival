@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewPlayerData", menuName = "Game/PlayerData")]
-public class PlayerData : ScriptableObject
+public class PlayerDataSO : ScriptableObject
 {
     public float BaseMoveSpeed;
     public float SprintSpeed;

@@ -44,7 +44,7 @@ public class StatPanel : MonoBehaviour
 
     private void Awake()
     {
-        statPanelMap = Util.mapDictionary<StatPanelEnum>(this.gameObject);
+        statPanelMap = Util.mapDictionaryInChildren<StatPanelEnum, GameObject>(this.gameObject);
         weaponImgMap = Util.mapDictionaryWithLoad<Weapons, Sprite>("Graphics/Textures");
         weaponInfoMap = new Dictionary<Weapons, WeaponInfo>
         {
@@ -65,12 +65,17 @@ public class StatPanel : MonoBehaviour
 
     private void changeEXP(int currentEXP)
     {
+        if( statPanelMap[StatPanelEnum.LvText] == null
+            || statPanelMap[StatPanelEnum.ExpText] == null) return;
         statPanelMap[StatPanelEnum.LvText].GetComponent<Text>().text = "Lv. "+ currentEXP / 100;
         statPanelMap[StatPanelEnum.ExpText].GetComponent<Text>().text = "EXP "+ currentEXP%100 + "/" + 100;
     }
     
     private void changeWeapon(Weapons weaponName)
     {
+        if (statPanelMap[StatPanelEnum.WeaponImg] == null
+            || statPanelMap[StatPanelEnum.WeaponNameTxt] == null
+            || statPanelMap[StatPanelEnum.WeaponDmgTxt] == null) return;
         statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = weaponInfoMap[weaponName].weaponName;
         statPanelMap[StatPanelEnum.WeaponImg].GetComponent<Image>().sprite = weaponInfoMap[weaponName].weaponImg;
         statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = "µ¥¹ÌÁö " + weaponInfoMap[weaponName].weaponDMG.ToString();

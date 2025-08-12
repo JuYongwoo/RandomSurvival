@@ -1,32 +1,44 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager
 {
+    public enum Sounds
+    {
+        BGM,
+        hitsound,
+        coinsound,
+        sprintsound
+
+    }
+
     private AudioSource effectsSource;
     private AudioSource bgmSource;
-
+    private Dictionary<Sounds, AudioClip> soundsMap;
 
     public void onAwake()
     {
         GameObject target = ManagerObject.instance.gameObject;
 
-        effectsSource = ComponentUtility.AddOrGetComponent<AudioSource>(target);
-        bgmSource = ComponentUtility.AddOrGetComponent<AudioSource>(target); // 이름 지정해서 두 개 분리
+        soundsMap = Util.mapDictionaryWithLoad<Sounds, AudioClip>("Audios");
+
+        effectsSource = Util.AddOrGetComponent<AudioSource>(target);
+        bgmSource = Util.AddOrGetComponent<AudioSource>(target); // 이름 지정해서 두 개 분리
         bgmSource.loop = true;
         bgmSource.playOnAwake = false;
     }
 
-    public void PlaySound(AudioClip clip, float volume = 1f)
+    public void PlaySound(Sounds sound, float volume = 1f)
     {
-        effectsSource.PlayOneShot(clip, volume);
+        effectsSource.PlayOneShot(soundsMap[sound], volume);
     }
 
-    public void PlayBGM(AudioClip bgmClip, float volume = 1f)
+    public void PlayBGM(Sounds sound, float volume = 1f)
     {
-        if (bgmSource.clip == bgmClip && bgmSource.isPlaying)
+        if (bgmSource.clip == soundsMap[sound] && bgmSource.isPlaying)
             return; // 이미 재생 중이면 다시 재생 안 함
 
-        bgmSource.clip = bgmClip;
+        bgmSource.clip = soundsMap[sound];
         bgmSource.volume = volume;
         bgmSource.Play();
     }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Util
 {
-    static public Dictionary<T, GameObject> mapDictionary<T>(GameObject go) where T : Enum
+    static public Dictionary<T, T2> mapDictionaryInChildren<T, T2>(GameObject go) where T : Enum where T2 : UnityEngine.Object
     {
-        Dictionary<T, GameObject> dict = new Dictionary<T, GameObject>();
+        Dictionary<T, T2> dict = new Dictionary<T, T2>();
 
         Transform[] children = go.GetComponentsInChildren<Transform>();
 
@@ -16,7 +16,14 @@ public class Util
             {
                 if (child.name == enumName.ToString())
                 {
-                    dict[enumName] = child.gameObject;
+                    if (typeof(T2) == typeof(GameObject))
+                    {
+                        dict[enumName] = (T2)(object)child.gameObject;
+                    }
+                    else
+                    {
+                        dict[enumName] = child.GetComponent<T2>();
+                    }
                     break;
                 }
             }
