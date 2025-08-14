@@ -1,37 +1,28 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-public enum Weapons
-{
-    Hand,
-    Bow,
-    Magic
-}
-public class StatObject
+
+public class StatManager
 {
 
     public WeaponDatabase WeaponDB { get; private set; }
-    public PlayerStats PlayerStats { get; private set; }
+    public PlayerDatabase PlayerStats { get; private set; }
 
 
     public void OnAwake() // SO파일 PlayerData를 로드하고 게임에 필요한 플레이어 베이스스탯을 가져온다.
     {
 
         // 무기 데이터 로드
-        var weaponImgMap = Util.mapDictionaryWithLoad<Weapons, Sprite>("Graphics/Textures");
+        var weaponImgMap = Util.mapDictionaryWithLoad<WeaponDatabase.Weapons, Sprite>("Graphics/Textures");
         WeaponDB = new WeaponDatabase(weaponImgMap);
 
         // 플레이어 데이터 로드
         var playerData = loadPlayerData();
         if (playerData != null)
         {
-            PlayerStats = new PlayerStats(playerData);
+            PlayerStats = new PlayerDatabase(playerData);
         }
+
         mapOtherActions();
-    }
-    public void OnStart()
-    {
     }
 
 
@@ -54,7 +45,7 @@ public class StatObject
 
         Player.deltaHP = PlayerStats.Current.deltaHP;
         EnemyBase.deltaPlayerEXP = PlayerStats.Current.deltaEXP;
-        StatPanel.getweaponInfo = (Weapons weapon) => WeaponDB.GetWeaponInfo(weapon);
+        StatPanel.getweaponInfo = (WeaponDatabase.Weapons weapon) => WeaponDB.GetWeaponInfo(weapon);
 
     }
 }

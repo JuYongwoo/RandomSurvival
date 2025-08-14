@@ -8,7 +8,7 @@ public class ManagerObject : MonoBehaviour
     static public InputManager input = new InputManager();
     static public PoolManager pool = new PoolManager();
     static public ResourceManager resource = new ResourceManager();
-    static public StatObject playerStatObj = new StatObject();
+    static public StatManager playerStatObj = new StatManager();
 
     private void Awake()
     {

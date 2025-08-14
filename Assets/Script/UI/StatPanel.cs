@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static StatObject;
+using static StatManager;
 
 
 
@@ -20,7 +20,7 @@ public enum StatPanelEnum
 
 
     private Dictionary<StatPanelEnum, GameObject> statPanelMap;
-    public static Func<Weapons, WeaponDatabase.WeaponInfo> getweaponInfo;
+    public static Func<WeaponDatabase.Weapons, WeaponDatabase.WeaponInfo> getweaponInfo;
 
 
 
@@ -28,8 +28,8 @@ public enum StatPanelEnum
     {
         statPanelMap = Util.mapDictionaryInChildren<StatPanelEnum, GameObject>(this.gameObject);
 
-        PlayerStats.PlayerCurrentStat.OnRefreshEXPUI = changeEXP;
-        PlayerStats.PlayerCurrentStat.OnChangeWeapon = changeWeapon;
+        PlayerDatabase.PlayerCurrentStat.OnRefreshEXPUI = changeEXP;
+        PlayerDatabase.PlayerCurrentStat.OnChangeWeapon = changeWeapon;
     }
 
     private void changeEXP(int currentEXP)
@@ -40,7 +40,7 @@ public enum StatPanelEnum
         statPanelMap[StatPanelEnum.ExpText].GetComponent<Text>().text = $"EXP {currentEXP%100}/{100}";
     }
     
-    private void changeWeapon(Weapons weaponName)
+    private void changeWeapon(WeaponDatabase.Weapons weaponName)
     {
         if (statPanelMap[StatPanelEnum.WeaponImg] == null
             || statPanelMap[StatPanelEnum.WeaponNameTxt] == null

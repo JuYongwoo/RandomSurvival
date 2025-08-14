@@ -9,18 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d3f6360f90fa444b84b7207f3702a26, type: 3}
+  m_Script: {fileID: 11500000, guid: 69d5554e12af2ce4697bf6330a314944, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  BaseMoveSpeed: 5
+  BaseMoveSpeed: 30
   SprintSpeed: 0
-  RotationSpeed: 360
-  RunSpeed: 10
-  MaxStamina: 100
-  StaminaRegenRate: 10
-  StaminaDrainRate: 20
-  SprintStaminaCost: 30
-  SprintDuration: 1
-  SprintCooldown: 3
+  RotationSpeed: 0
+  RunSpeed: 0
+  MaxStamina: 0
+  StaminaRegenRate: 0
+  StaminaDrainRate: 0
+  SprintStaminaCost: 0
+  SprintDuration: 0
+  SprintCooldown: 0
   MaxHP: 100
-  HitDamage: 10
+  HitDamage: 0

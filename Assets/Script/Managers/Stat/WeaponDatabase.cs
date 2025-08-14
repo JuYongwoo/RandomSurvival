@@ -5,6 +5,13 @@ public class WeaponDatabase
 {
     private readonly Dictionary<Weapons, WeaponInfo> weaponInfoMap;
 
+
+    public enum Weapons
+    {
+        Hand,
+        Bow,
+        Magic
+    }
     public struct WeaponInfo
     {
         public string weaponName;

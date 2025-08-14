@@ -1,5 +1,5 @@
 using System;
-public class PlayerStats
+public class PlayerDatabase
 {
     public struct PlayerBaseStat
     {
@@ -16,7 +16,6 @@ public class PlayerStats
             SprintDuration = playerdataSO.SprintDuration;
             SprintCooldown = playerdataSO.SprintCooldown;
             MaxHP = playerdataSO.MaxHP;
-            HitDamage = playerdataSO.HitDamage;
         }
         public float BaseMoveSpeed;
         public float SprintSpeed;
@@ -29,20 +28,20 @@ public class PlayerStats
         public float SprintDuration;
         public float SprintCooldown;
         public float MaxHP;
-        public float HitDamage;
     }
 
 
     public struct PlayerCurrentStat
     {
-        public PlayerCurrentStat(float maxHP)
+        public PlayerCurrentStat(float maxHP, float moveSp)
         {
             MaxHP = maxHP;
             HP = MaxHP;
             EXP = 0;
             attackUpgrade = 0;
             HPUpgrade = 0;
-            CurrentWeapon = Weapons.Hand; // 기본 무기는 맨손으로 설정
+            CurrentWeapon = WeaponDatabase.Weapons.Hand; // 기본 무기는 맨손으로 설정
+            moveSpeed = moveSp;
         }
         public void deltaHP(float delta)
         {
@@ -58,7 +57,7 @@ public class PlayerStats
             EXP += delta;
             OnRefreshEXPUI?.Invoke(EXP);
         }
-        public void setCurrentWeapon(Weapons weapon)
+        public void setCurrentWeapon(WeaponDatabase.Weapons weapon)
         {
             CurrentWeapon = weapon;
             OnChangeWeapon(CurrentWeapon);
@@ -67,22 +66,23 @@ public class PlayerStats
         public float MaxHP;
         public float HP;
         public int EXP;
-        public Weapons CurrentWeapon; // 현재 장착된 무기
+        public WeaponDatabase.Weapons CurrentWeapon; // 현재 장착된 무기
         public int attackUpgrade; // 업그레이드 레벨
         public int HPUpgrade; // 업그레이드 레벨
+        public float moveSpeed;
 
         public static Action<float, float> OnRefreshHPBar;
         public static Action<int> OnRefreshEXPUI;
-        public static Action<Weapons> OnChangeWeapon;
+        public static Action<WeaponDatabase.Weapons> OnChangeWeapon;
     }
 
     public PlayerBaseStat Base;
     public PlayerCurrentStat Current;
 
-    public PlayerStats(PlayerDataSO data)
+    public PlayerDatabase(PlayerDataSO data)
     {
         Base = new PlayerBaseStat(data);
-        Current = new PlayerCurrentStat(Base.MaxHP);
+        Current = new PlayerCurrentStat(Base.MaxHP, Base.BaseMoveSpeed);
     }
 
 }
