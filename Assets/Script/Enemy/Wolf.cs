@@ -1,6 +1,4 @@
-﻿using UnityEngine.AI;
-
-public class Wolf : EnemyBase
+﻿public class Wolf : EnemyBase
 {
 
     protected override void Awake()

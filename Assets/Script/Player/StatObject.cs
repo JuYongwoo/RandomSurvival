@@ -51,13 +51,13 @@ public class StatObject
             attackUpgrade = 0;
             HPUpgrade = 0;
             CurrentWeapon = Weapons.Hand; // 기본 무기는 맨손으로 설정
-            OnRefreshHPBar?.Invoke(HP);
+            OnRefreshHPBar?.Invoke(HP, MaxHP);
             OnRefreshEXPUI?.Invoke(EXP);
         }
         public void deltaHP(float delta)
         {
             HP += delta;
-            OnRefreshHPBar?.Invoke(HP);
+            OnRefreshHPBar?.Invoke(HP, MaxHP);
             if (HP <= 0f)
             {
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
@@ -80,7 +80,7 @@ public class StatObject
         public int attackUpgrade; // 업그레이드 레벨
         public int HPUpgrade; // 업그레이드 레벨
 
-        public static Action<float> OnRefreshHPBar;
+        public static Action<float, float> OnRefreshHPBar;
         public static Action<int> OnRefreshEXPUI;
     }
 

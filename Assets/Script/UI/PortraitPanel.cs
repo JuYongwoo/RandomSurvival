@@ -12,7 +12,7 @@ public class PortraitPanel : MonoBehaviour
         Remaining
     }
     private Dictionary<PortraitPanelObj, GameObject> PortraitPanelObjDict;
-
+    private const float SliderVisualOffset = 0.01f;
 
     // Start is called before the first frame update
     void Awake()
@@ -24,10 +24,12 @@ public class PortraitPanel : MonoBehaviour
     }
     private void otherActionMapping()
     {
-        StatObject.PlayerCurrentStat.OnRefreshHPBar = (hp) =>
+        StatObject.PlayerCurrentStat.OnRefreshHPBar = (hp,max) =>
         {
-            PortraitPanelObjDict[PortraitPanelObj.HPBar].GetComponent<Slider>().value = hp / 100 + 0.01f;
-            PortraitPanelObjDict[PortraitPanelObj.HPTxt].GetComponent<Text>().text = (int)hp + "/100";
+            if( PortraitPanelObjDict[PortraitPanelObj.HPBar] == null
+                || PortraitPanelObjDict[PortraitPanelObj.HPTxt] == null) return;
+            PortraitPanelObjDict[PortraitPanelObj.HPBar].GetComponent<Slider>().value = hp / max + SliderVisualOffset;
+            PortraitPanelObjDict[PortraitPanelObj.HPTxt].GetComponent<Text>().text = $"{(int)hp}/{max}";
         };
 
 
