@@ -20,7 +20,7 @@ public enum StatPanelEnum
 
 
     private Dictionary<StatPanelEnum, GameObject> statPanelMap;
-    public static Func<Weapons, WeaponInfo> getweaponInfo;
+    public static Func<Weapons, WeaponDatabase.WeaponInfo> getweaponInfo;
 
 
 
@@ -28,23 +28,16 @@ public enum StatPanelEnum
     {
         statPanelMap = Util.mapDictionaryInChildren<StatPanelEnum, GameObject>(this.gameObject);
 
-
-
-        StatObject.PlayerCurrentStat.OnRefreshEXPUI = changeEXP;
-    }
-    private void Start()
-    {
-        //playerstatManager에서 액션 호출로 변경해야함
-        changeWeapon(Weapons.Hand);
-        changeEXP(1420);
+        PlayerStats.PlayerCurrentStat.OnRefreshEXPUI = changeEXP;
+        PlayerStats.PlayerCurrentStat.OnChangeWeapon = changeWeapon;
     }
 
     private void changeEXP(int currentEXP)
     {
         if( statPanelMap[StatPanelEnum.LvText] == null
             || statPanelMap[StatPanelEnum.ExpText] == null) return;
-        statPanelMap[StatPanelEnum.LvText].GetComponent<Text>().text = "Lv. "+ currentEXP / 100;
-        statPanelMap[StatPanelEnum.ExpText].GetComponent<Text>().text = "EXP "+ currentEXP%100 + "/" + 100;
+        statPanelMap[StatPanelEnum.LvText].GetComponent<Text>().text = $"Lv.{currentEXP / 100 + 1}";
+        statPanelMap[StatPanelEnum.ExpText].GetComponent<Text>().text = $"EXP {currentEXP%100}/{100}";
     }
     
     private void changeWeapon(Weapons weaponName)
@@ -54,7 +47,7 @@ public enum StatPanelEnum
             || statPanelMap[StatPanelEnum.WeaponDmgTxt] == null) return;
         statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = getweaponInfo(weaponName).weaponName;
         statPanelMap[StatPanelEnum.WeaponImg].GetComponent<Image>().sprite = getweaponInfo(weaponName).weaponImg;
-        statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = "데미지 " + getweaponInfo(weaponName).weaponDMG.ToString();
+        statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = $"데미지 {getweaponInfo(weaponName).weaponDMG.ToString()}";
 
     }
 }
