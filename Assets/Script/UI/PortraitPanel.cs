@@ -24,7 +24,7 @@ public class PortraitPanel : MonoBehaviour
     }
     private void otherActionMapping()
     {
-        PlayerStatObject.OnRefreshHPBar = (hp) =>
+        StatObject.PlayerCurrentStat.OnRefreshHPBar = (hp) =>
         {
             PortraitPanelObjDict[PortraitPanelObj.HPBar].GetComponent<Slider>().value = hp / 100 + 0.01f;
             PortraitPanelObjDict[PortraitPanelObj.HPTxt].GetComponent<Text>().text = (int)hp + "/100";

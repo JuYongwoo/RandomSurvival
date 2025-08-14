@@ -10,14 +10,12 @@ public class PlayerFace : MonoBehaviour
     void Awake()
     {
 
-        Faceanim = gameObject.GetComponent<Animator>();
-        if (Faceanim == null)
-            Faceanim = gameObject.AddComponent<Animator>();
+        Faceanim = Util.AddOrGetComponent<Animator>(gameObject);
         Faceanim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animations/Face");
         Faceanim.SetBool("Damaged", false);
 
 
-        Player.OnFaceDamaged += changeFaceDamage;
+        Player.OnFaceDamaged = changeFaceDamage;
     }
     IEnumerator ResetFace()
     {

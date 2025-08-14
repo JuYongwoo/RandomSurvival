@@ -1,60 +1,36 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static StatObject;
+
+
 
 public class StatPanel : MonoBehaviour
 {
-    private enum StatPanelEnum
-    {
-        LvText,
-        ExpText,
-        WeaponImg,
-        WeaponNameTxt,
-        WeaponDmgTxt
-    }
 
-    public enum Weapons
-    {
-        Hand,
-        Bow,
-        Magic
-    }
-
-    public struct WeaponInfo{
-        public string weaponName;
-        public Sprite weaponImg;
-        public int weaponDMG;
-        public WeaponInfo(string weaponName, Sprite weaponImg, int weaponDMG)
-        {
-            this.weaponName = weaponName;
-            this.weaponImg = weaponImg;
-            this.weaponDMG = weaponDMG;
-        }
-
-    }
-
+public enum StatPanelEnum
+{
+    LvText,
+    ExpText,
+    WeaponImg,
+    WeaponNameTxt,
+    WeaponDmgTxt
+}
 
 
     private Dictionary<StatPanelEnum, GameObject> statPanelMap;
-    private Dictionary<Weapons, WeaponInfo> weaponInfoMap;
+    public static Func<Weapons, WeaponInfo> getweaponInfo;
 
 
-
-    private Dictionary<Weapons, Sprite> weaponImgMap;
 
     private void Awake()
     {
         statPanelMap = Util.mapDictionaryInChildren<StatPanelEnum, GameObject>(this.gameObject);
-        weaponImgMap = Util.mapDictionaryWithLoad<Weapons, Sprite>("Graphics/Textures");
-        weaponInfoMap = new Dictionary<Weapons, WeaponInfo>
-        {
-            { Weapons.Hand,  new WeaponInfo( "맨손", weaponImgMap[Weapons.Hand],  10) },
-            { Weapons.Bow,   new WeaponInfo("활",   weaponImgMap[Weapons.Bow],   15) },
-            { Weapons.Magic, new WeaponInfo("마법", weaponImgMap[Weapons.Magic], 20) },
-        };
 
 
-        PlayerStatObject.OnRefreshEXPUI = changeEXP;
+
+        StatObject.PlayerCurrentStat.OnRefreshEXPUI = changeEXP;
     }
     private void Start()
     {
@@ -76,9 +52,9 @@ public class StatPanel : MonoBehaviour
         if (statPanelMap[StatPanelEnum.WeaponImg] == null
             || statPanelMap[StatPanelEnum.WeaponNameTxt] == null
             || statPanelMap[StatPanelEnum.WeaponDmgTxt] == null) return;
-        statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = weaponInfoMap[weaponName].weaponName;
-        statPanelMap[StatPanelEnum.WeaponImg].GetComponent<Image>().sprite = weaponInfoMap[weaponName].weaponImg;
-        statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = "데미지 " + weaponInfoMap[weaponName].weaponDMG.ToString();
+        statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = getweaponInfo(weaponName).weaponName;
+        statPanelMap[StatPanelEnum.WeaponImg].GetComponent<Image>().sprite = getweaponInfo(weaponName).weaponImg;
+        statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = "데미지 " + getweaponInfo(weaponName).weaponDMG.ToString();
 
     }
 }

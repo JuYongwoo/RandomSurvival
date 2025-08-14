@@ -8,18 +8,18 @@ public class ManagerObject : MonoBehaviour
     static public InputManager input = new InputManager();
     static public PoolManager pool = new PoolManager();
     static public ResourceManager resource = new ResourceManager();
-    static public PlayerStatObject playerStatObj = new PlayerStatObject();
+    static public StatObject playerStatObj = new StatObject();
 
     private void Awake()
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        //if (instance != null && instance != this)
+        //{
+        //    Destroy(gameObject);
+        //    return;
+        //}
 
         instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         playerStatObj.OnAwake();
         am.onAwake();
         input.OnAwake();
