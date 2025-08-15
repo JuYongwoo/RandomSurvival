@@ -42,7 +42,7 @@ public class WeaponDatabase
         };
     }
 
-    public WeaponInfo GetWeaponInfo(Weapons weapon)
+    public WeaponInfo GetWeaponInfo(Weapons weapon) //map으로써 다양한 무기가 있기 때문에 무기 정보를 받는 함수
     {
         if (weaponInfoMap.TryGetValue(weapon, out var info))
             return info;

@@ -8,8 +8,7 @@ public class WeaponDataSO : ScriptableObject
     public float ReloadTime;
     public float Range;
     public float BulletSpeed;
-    public AudioClip FireSound;
-    public GameObject EffectPrefab;
-    // Add any additional weapon properties as needed
+    public string FireSound;
+    public string Objectile;
 
 }
