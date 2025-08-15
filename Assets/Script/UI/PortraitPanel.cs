@@ -24,7 +24,7 @@ public class PortraitPanel : MonoBehaviour
     }
     private void otherActionMapping()
     {
-        PlayerDatabase.PlayerCurrentStat.OnRefreshHPBar = (hp,max) =>
+        PlayerDatabase.OnRefreshHPBar = (hp,max) =>
         {
             if( PortraitPanelObjDict[PortraitPanelObj.HPBar] == null
                 || PortraitPanelObjDict[PortraitPanelObj.HPTxt] == null) return;

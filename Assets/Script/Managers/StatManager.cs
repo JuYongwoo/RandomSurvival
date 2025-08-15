@@ -23,8 +23,8 @@ public class StatManager
     {
         // 플레이어의 현재 HP, EXP, 무기 정보 등을 다른 클래스에서 사용할 수 있도록 매핑
         // 더이상 액션에 추가하거나 변경할 필요가 없는 정적 매핑들
-        Player.deltaHP = PlayerStatDB.Current.deltaHP;
-        EnemyBase.deltaPlayerEXP = PlayerStatDB.Current.deltaEXP;
+        Player.deltaHP = PlayerStatDB.deltaHP;
+        EnemyBase.deltaPlayerEXP = PlayerStatDB.deltaEXP;
         StatPanel.getweaponInfo = (WeaponDatabase.Weapons weapon) => WeaponStatDB.GetWeaponInfo(weapon);
         PlayerStateMachine.getPlayerWeaponProjectile = () => WeaponStatDB.GetWeaponInfo(PlayerStatDB.Current.CurrentWeapon).weaponProjectile; //현재 플레이어가 장착한 무기의 투사체를 반환
         PlayerStateMachine.getPlayerWeaponFireSound = () => WeaponStatDB.GetWeaponInfo(PlayerStatDB.Current.CurrentWeapon).weaponFireSound; //현재 플레이어가 장착한 무기의 발사 소리를 반환

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 public class PlayerDatabase
 {
 
@@ -16,25 +17,7 @@ public class PlayerDatabase
             HPUpgrade = 0;
             CurrentWeapon = WeaponDatabase.Weapons.Hand; // 기본 무기는 맨손으로 설정
         }
-        public void deltaHP(float delta)
-        {
-            HP += delta;
-            OnRefreshHPBar?.Invoke(HP, MaxHP);
-            if (HP <= 0f)
-            {
-                UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
-            }
-        }
-        public void deltaEXP(int delta)
-        {
-            EXP += delta;
-            OnRefreshEXPUI?.Invoke(EXP);
-        }
-        public void setCurrentWeapon(WeaponDatabase.Weapons weapon)
-        {
-            CurrentWeapon = weapon;
-            OnChangeWeapon(CurrentWeapon);
-        }
+
 
         public float MaxHP;
         public float HP;
@@ -44,17 +27,38 @@ public class PlayerDatabase
         public int HPUpgrade; // 업그레이드 레벨
         public float moveSpeed;
 
-        public static Action<float, float> OnRefreshHPBar;
-        public static Action<int> OnRefreshEXPUI;
-        public static Action<WeaponDatabase.Weapons> OnChangeWeapon;
     }
 
     public PlayerCurrentStat Current;
+
+    public static Action<float, float> OnRefreshHPBar;
+    public static Action<int> OnRefreshEXPUI;
+    public static Action<WeaponDatabase.Weapons> OnChangeWeapon;
 
     public PlayerDatabase()
     {
         PlayerDataSO playerData = Util.LoadOneResource<PlayerDataSO>("GameData/Player/");
         Current = new PlayerCurrentStat(playerData.MaxHP, playerData.BaseMoveSpeed); //player가 여러개가 되면 weapon처럼 맵으로 바꿔야
+    }
+
+    public void deltaHP(float delta)
+    {
+        Current.HP += delta;
+        OnRefreshHPBar?.Invoke(Current.HP, Current.MaxHP);
+        if (Current.HP <= 0f)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
+        }
+    }
+    public void deltaEXP(int delta)
+    {
+        Current.EXP += delta;
+        OnRefreshEXPUI?.Invoke(Current.EXP);
+    }
+    public void setCurrentWeapon(WeaponDatabase.Weapons weapon)
+    {
+        Current.CurrentWeapon = weapon;
+        OnChangeWeapon(Current.CurrentWeapon);
     }
 
 }

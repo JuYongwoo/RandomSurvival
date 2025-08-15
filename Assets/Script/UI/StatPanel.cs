@@ -28,8 +28,8 @@ public enum StatPanelEnum
     {
         statPanelMap = Util.mapDictionaryInChildren<StatPanelEnum, GameObject>(this.gameObject);
 
-        PlayerDatabase.PlayerCurrentStat.OnRefreshEXPUI = changeEXP;
-        PlayerDatabase.PlayerCurrentStat.OnChangeWeapon = changeWeapon;
+        PlayerDatabase.OnRefreshEXPUI = changeEXP;
+        PlayerDatabase.OnChangeWeapon = changeWeapon;
     }
 
     private void changeEXP(int currentEXP)
