@@ -2,7 +2,7 @@
 {
     private void Awake()
     {
-        hp = 200;
+        hp = 20;
         power = 0;
 
     }

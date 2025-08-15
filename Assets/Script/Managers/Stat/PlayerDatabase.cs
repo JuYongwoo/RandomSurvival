@@ -2,34 +2,6 @@ using System;
 using System.Collections.Generic;
 public class PlayerDatabase
 {
-    public struct PlayerBaseStat
-    {
-        public PlayerBaseStat(PlayerDataSO playerdataSO)
-        {
-            BaseMoveSpeed = playerdataSO.BaseMoveSpeed;
-            SprintSpeed = playerdataSO.SprintSpeed;
-            RunSpeed = playerdataSO.RunSpeed;
-            RotationSpeed = playerdataSO.RotationSpeed;
-            MaxStamina = playerdataSO.MaxStamina;
-            StaminaRegenRate = playerdataSO.StaminaRegenRate;
-            StaminaDrainRate = playerdataSO.StaminaDrainRate;
-            SprintStaminaCost = playerdataSO.SprintStaminaCost;
-            SprintDuration = playerdataSO.SprintDuration;
-            SprintCooldown = playerdataSO.SprintCooldown;
-            MaxHP = playerdataSO.MaxHP;
-        }
-        public float BaseMoveSpeed;
-        public float SprintSpeed;
-        public float RunSpeed;
-        public float RotationSpeed;
-        public float MaxStamina;
-        public float StaminaRegenRate;
-        public float StaminaDrainRate;
-        public float SprintStaminaCost;
-        public float SprintDuration;
-        public float SprintCooldown;
-        public float MaxHP;
-    }
 
 
     public struct PlayerCurrentStat
@@ -37,12 +9,12 @@ public class PlayerDatabase
         public PlayerCurrentStat(float maxHP, float moveSp)
         {
             MaxHP = maxHP;
+            moveSpeed = moveSp;
             HP = MaxHP;
             EXP = 0;
             attackUpgrade = 0;
             HPUpgrade = 0;
             CurrentWeapon = WeaponDatabase.Weapons.Hand; // 기본 무기는 맨손으로 설정
-            moveSpeed = moveSp;
         }
         public void deltaHP(float delta)
         {
@@ -77,15 +49,12 @@ public class PlayerDatabase
         public static Action<WeaponDatabase.Weapons> OnChangeWeapon;
     }
 
-    public PlayerBaseStat Base;
     public PlayerCurrentStat Current;
-    private Dictionary<WeaponDatabase.Weapons, PlayerDataSO> playerDatas;
 
     public PlayerDatabase()
     {
         PlayerDataSO playerData = Util.LoadOneResource<PlayerDataSO>("GameData/Player/");
-        Base = new PlayerBaseStat(playerData);
-        Current = new PlayerCurrentStat(Base.MaxHP, Base.BaseMoveSpeed);
+        Current = new PlayerCurrentStat(playerData.MaxHP, playerData.BaseMoveSpeed); //player가 여러개가 되면 weapon처럼 맵으로 바꿔야
     }
 
 }
