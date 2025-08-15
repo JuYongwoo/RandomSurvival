@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerDatabase
 {
 
+    public PlayerCurrentStat Current; //계속 수치가 변해야하므로 readonly 사용 X
 
     public struct PlayerCurrentStat
     {
@@ -29,7 +30,6 @@ public class PlayerDatabase
 
     }
 
-    public PlayerCurrentStat Current;
 
     public static Action<float, float> OnRefreshHPBar;
     public static Action<int> OnRefreshEXPUI;

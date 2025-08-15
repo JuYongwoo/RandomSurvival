@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WeaponDatabase
 {
-    private readonly Dictionary<Weapons, WeaponInfo> weaponInfoMap;
+    private readonly Dictionary<Weapons, WeaponInfo> weaponInfoMap; //정보를 저장한 맵이기 때문에 수치 변화하지 않도록 readonly 사용
 
     public enum Weapons
     {
