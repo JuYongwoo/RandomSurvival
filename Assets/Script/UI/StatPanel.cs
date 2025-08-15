@@ -37,7 +37,7 @@ public enum StatPanelEnum
         if( statPanelMap[StatPanelEnum.LvText] == null
             || statPanelMap[StatPanelEnum.ExpText] == null) return;
         statPanelMap[StatPanelEnum.LvText].GetComponent<Text>().text = $"Lv.{currentEXP / 100 + 1}";
-        statPanelMap[StatPanelEnum.ExpText].GetComponent<Text>().text = $"EXP {currentEXP%100}/{100}";
+        statPanelMap[StatPanelEnum.ExpText].GetComponent<Text>().text = $"Exp {currentEXP%100}/{100}";
     }
     
     private void changeWeapon(WeaponDatabase.Weapons weaponName)

@@ -27,11 +27,12 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] private float targetMoveThreshold = 0.6f;
     [SerializeField] private float selfMoveThreshold = 0.6f;
 
-    [SerializeField] private GameObject attackParticlePrefab;
     [SerializeField] private GameObject moveMarkPrefab;
 
     public static Func<PlayerState> playerstate;
     public static Func<Animator> animator;
+    public static Func<AudioClip> getPlayerWeaponFireSound;
+    public static Func<GameObject> getPlayerWeaponProjectile;
 
     private GameObject currentTarget;
     private Coroutine attackingCoroutine;
@@ -47,8 +48,6 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Awake()
     {
-        if (attackParticlePrefab == null)
-            attackParticlePrefab = Resources.Load<GameObject>("Prefabs/AttackParticle");
         if (moveMarkPrefab == null)
             moveMarkPrefab = Resources.Load<GameObject>("Prefabs/MoveMark");
 
@@ -249,7 +248,8 @@ public class PlayerStateMachine : MonoBehaviour
         if (currentTarget != null)
             transform.LookAt(currentTarget.transform.position);
 
-        var particle = Instantiate(attackParticlePrefab, transform.position + Vector3.up * 1.2f, Quaternion.identity);
+        if (getPlayerWeaponFireSound() != null) ManagerObject.am.PlayAudioClip(getPlayerWeaponFireSound());
+        var particle = Instantiate(getPlayerWeaponProjectile(), transform.position + Vector3.up * 1.2f, Quaternion.identity);
         var attackParticle = particle.GetComponent<AttackParticle>();
         if (attackParticle != null && currentTarget != null)
             attackParticle.SetTarget(currentTarget.transform);

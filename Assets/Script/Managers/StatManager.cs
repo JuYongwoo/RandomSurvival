@@ -26,6 +26,8 @@ public class StatManager
         Player.deltaHP = PlayerStatDB.Current.deltaHP;
         EnemyBase.deltaPlayerEXP = PlayerStatDB.Current.deltaEXP;
         StatPanel.getweaponInfo = (WeaponDatabase.Weapons weapon) => WeaponStatDB.GetWeaponInfo(weapon);
+        PlayerStateMachine.getPlayerWeaponProjectile = () => WeaponStatDB.GetWeaponInfo(PlayerStatDB.Current.CurrentWeapon).weaponProjectile; //현재 플레이어가 장착한 무기의 투사체를 반환
+        PlayerStateMachine.getPlayerWeaponFireSound = () => WeaponStatDB.GetWeaponInfo(PlayerStatDB.Current.CurrentWeapon).weaponFireSound; //현재 플레이어가 장착한 무기의 발사 소리를 반환
         AttackParticle.getCurrentPlayerDamage = () =>
         PlayerStatDB.Current.attackUpgrade * WeaponStatDB.GetWeaponInfo(PlayerStatDB.Current.CurrentWeapon).weaponUpgradeDMGDelta //무기 업그레이드 레벨 * 무기 업그레이드 데미지 델타
         + WeaponStatDB.GetWeaponInfo(PlayerStatDB.Current.CurrentWeapon).weaponDMG; // + 현재 무기 기본 데미지 = 현재 플레이어 공격력

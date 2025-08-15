@@ -33,6 +33,11 @@ public class AudioManager
         effectsSource.PlayOneShot(soundsMap[sound], volume);
     }
 
+    public void PlayAudioClip(AudioClip sound, float volume = 1f)
+    {
+        effectsSource.PlayOneShot(sound, volume);
+    }
+
     public void PlayBGM(Sounds sound, float volume = 1f)
     {
         if (bgmSource.clip == soundsMap[sound] && bgmSource.isPlaying)

@@ -4,9 +4,6 @@ using UnityEngine;
 public class WeaponDatabase
 {
     private readonly Dictionary<Weapons, WeaponInfo> weaponInfoMap;
-    private readonly Dictionary<Weapons, WeaponDataSO> weaponSOMap;
-    private readonly Dictionary<Weapons, Sprite> weaponImgMap;
-
 
     public enum Weapons
     {
@@ -20,25 +17,32 @@ public class WeaponDatabase
         public Sprite weaponImg;
         public float weaponDMG;
         public float weaponUpgradeDMGDelta;
+        public AudioClip weaponFireSound;
+        public GameObject weaponProjectile;
 
-        public WeaponInfo(string weaponName, Sprite weaponImg, float weaponDMG, float weaponUpgradeDMGDelta)
+        public WeaponInfo(string weaponName, WeaponDataSO weaponData, Sprite weaponImg, AudioClip weaponFireSound, GameObject weaponProjectile)
         {
             this.weaponName = weaponName;
             this.weaponImg = weaponImg;
-            this.weaponDMG = weaponDMG;
-            this.weaponUpgradeDMGDelta = weaponUpgradeDMGDelta;
+            this.weaponDMG = weaponData.BaseDamage;
+            this.weaponUpgradeDMGDelta = weaponData.UpgradeDamageDelta;
+            this.weaponFireSound = weaponFireSound;
+            this.weaponProjectile = weaponProjectile;
         }
     }
 
     public WeaponDatabase()
     {
-        weaponImgMap = Util.mapDictionaryWithLoad<WeaponDatabase.Weapons, Sprite>("Graphics/Textures"); //무기 텍스쳐 로드
-        weaponSOMap = Util.mapDictionaryWithLoad<Weapons, WeaponDataSO>("GameData/Weapon"); //무기 스탯 로드
+        Dictionary<Weapons, WeaponDataSO> weaponTypeDataSOMap = Util.mapDictionaryWithLoad<Weapons, WeaponDataSO>("GameData/Weapon/Type"); //무기 스탯 로드
+        Dictionary<Weapons, Sprite> weaponIconMap = Util.mapDictionaryWithLoad<Weapons, Sprite>("GameData/Weapon/Icon"); //무기 텍스쳐 로드
+        Dictionary<Weapons, AudioClip> weaponFireSoundMap = Util.mapDictionaryWithLoad<Weapons, AudioClip>("GameData/Weapon/FireSound"); //무기 소리 로드
+        Dictionary<Weapons, GameObject> weaponProjectileMap = Util.mapDictionaryWithLoad<Weapons, GameObject>("GameData/Weapon/Projectile"); //무기 투사체 로드
+
         weaponInfoMap = new Dictionary<Weapons, WeaponInfo> //정보들을 하나로 통일
         {
-            { Weapons.Hand,  new WeaponInfo("맨손", weaponImgMap[Weapons.Hand],  weaponSOMap[Weapons.Hand].BaseDamage, weaponSOMap[Weapons.Hand].UpgradeDamageDelta) },
-            { Weapons.Bow,   new WeaponInfo("활",   weaponImgMap[Weapons.Bow],   weaponSOMap[Weapons.Bow].BaseDamage, weaponSOMap[Weapons.Bow].UpgradeDamageDelta) },
-            { Weapons.Magic, new WeaponInfo("마법", weaponImgMap[Weapons.Magic], weaponSOMap[Weapons.Magic].BaseDamage, weaponSOMap[Weapons.Magic].UpgradeDamageDelta) }
+            { Weapons.Hand,  new WeaponInfo("맨손", weaponTypeDataSOMap[Weapons.Hand], weaponIconMap[Weapons.Hand], weaponFireSoundMap[Weapons.Hand], weaponProjectileMap[Weapons.Hand])},
+            { Weapons.Bow,   new WeaponInfo("활",   weaponTypeDataSOMap[Weapons.Bow], weaponIconMap[Weapons.Bow], weaponFireSoundMap[Weapons.Bow], weaponProjectileMap[Weapons.Bow]) },
+            { Weapons.Magic, new WeaponInfo("마법", weaponTypeDataSOMap[Weapons.Magic], weaponIconMap[Weapons.Magic], weaponFireSoundMap[Weapons.Magic], weaponProjectileMap[Weapons.Magic]) }
         };
     }
 
