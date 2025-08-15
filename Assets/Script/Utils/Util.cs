@@ -46,6 +46,21 @@ public class Util
         return dict;
     }
 
+    static public T LoadOneResource<T>(string filePath) where T : UnityEngine.Object
+    {
+        T[] resources = Resources.LoadAll<T>(filePath);
+        if (resources.Length == 0)
+        {
+            Debug.LogError($"No resources found at {filePath}");
+            return null;
+        }
+        if (resources.Length > 1)
+        {
+            Debug.LogWarning($"Multiple resources found at {filePath}, returning the first one.");
+        }
+        return resources[0];
+    }
+
     public static T AddOrGetComponent<T>(GameObject go) where T : UnityEngine.Component
     {
         T component = go.GetComponent<T>();

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 public class PlayerDatabase
 {
     public struct PlayerBaseStat
@@ -78,10 +79,12 @@ public class PlayerDatabase
 
     public PlayerBaseStat Base;
     public PlayerCurrentStat Current;
+    private Dictionary<WeaponDatabase.Weapons, PlayerDataSO> playerDatas;
 
-    public PlayerDatabase(PlayerDataSO data)
+    public PlayerDatabase()
     {
-        Base = new PlayerBaseStat(data);
+        PlayerDataSO playerData = Util.LoadOneResource<PlayerDataSO>("GameData/Player/");
+        Base = new PlayerBaseStat(playerData);
         Current = new PlayerCurrentStat(Base.MaxHP, Base.BaseMoveSpeed);
     }
 

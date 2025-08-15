@@ -6,8 +6,8 @@
         base.Awake();
 
 
-        hp = 100;
-        power = 10;
+        hp = 10;
+        power = 1;
         EXP= 10;
     }
 }

@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 public class AttackParticle : MonoBehaviour
 {
-    public float damage = 100f;
+    public static Func<float> getCurrentPlayerDamage;
     public float speed = 5f;
     private Transform target;
 
@@ -26,7 +27,7 @@ public class AttackParticle : MonoBehaviour
         {
             EnemyBase attackable = target.GetComponentInParent<EnemyBase>();
             if (attackable != null)
-                attackable.TakeDamage(damage);
+                attackable.TakeDamage(getCurrentPlayerDamage());
 
             Destroy(gameObject);
         }

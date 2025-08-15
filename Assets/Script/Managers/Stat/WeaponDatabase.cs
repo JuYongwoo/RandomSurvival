@@ -4,6 +4,8 @@ using UnityEngine;
 public class WeaponDatabase
 {
     private readonly Dictionary<Weapons, WeaponInfo> weaponInfoMap;
+    private readonly Dictionary<Weapons, WeaponDataSO> weaponSOMap;
+    private readonly Dictionary<Weapons, Sprite> weaponImgMap;
 
 
     public enum Weapons
@@ -16,23 +18,27 @@ public class WeaponDatabase
     {
         public string weaponName;
         public Sprite weaponImg;
-        public int weaponDMG;
+        public float weaponDMG;
+        public float weaponUpgradeDMGDelta;
 
-        public WeaponInfo(string weaponName, Sprite weaponImg, int weaponDMG)
+        public WeaponInfo(string weaponName, Sprite weaponImg, float weaponDMG, float weaponUpgradeDMGDelta)
         {
             this.weaponName = weaponName;
             this.weaponImg = weaponImg;
             this.weaponDMG = weaponDMG;
+            this.weaponUpgradeDMGDelta = weaponUpgradeDMGDelta;
         }
     }
 
-    public WeaponDatabase(Dictionary<Weapons, Sprite> weaponImgMap)
+    public WeaponDatabase()
     {
-        weaponInfoMap = new Dictionary<Weapons, WeaponInfo>
+        weaponImgMap = Util.mapDictionaryWithLoad<WeaponDatabase.Weapons, Sprite>("Graphics/Textures"); //무기 텍스쳐 로드
+        weaponSOMap = Util.mapDictionaryWithLoad<Weapons, WeaponDataSO>("GameData/Weapon"); //무기 스탯 로드
+        weaponInfoMap = new Dictionary<Weapons, WeaponInfo> //정보들을 하나로 통일
         {
-            { Weapons.Hand,  new WeaponInfo("맨손", weaponImgMap[Weapons.Hand],  10) },
-            { Weapons.Bow,   new WeaponInfo("활",   weaponImgMap[Weapons.Bow],   15) },
-            { Weapons.Magic, new WeaponInfo("마법", weaponImgMap[Weapons.Magic], 20) }
+            { Weapons.Hand,  new WeaponInfo("맨손", weaponImgMap[Weapons.Hand],  weaponSOMap[Weapons.Hand].BaseDamage, weaponSOMap[Weapons.Hand].UpgradeDamageDelta) },
+            { Weapons.Bow,   new WeaponInfo("활",   weaponImgMap[Weapons.Bow],   weaponSOMap[Weapons.Bow].BaseDamage, weaponSOMap[Weapons.Bow].UpgradeDamageDelta) },
+            { Weapons.Magic, new WeaponInfo("마법", weaponImgMap[Weapons.Magic], weaponSOMap[Weapons.Magic].BaseDamage, weaponSOMap[Weapons.Magic].UpgradeDamageDelta) }
         };
     }
 
