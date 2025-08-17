@@ -3,17 +3,19 @@ using Unity.AI.Navigation;
 
 public class MainSceneObject : MonoBehaviour
 {
-
+    [HideInInspector]
+    //public GameObject player;
     private void Awake()
     {
     }
 
     private void Start()
     {
-        NavMeshSurface surface = GetComponent<NavMeshSurface>();
         ManagerObject.am.PlayBGM(AudioManager.Sounds.BGM);
-        SpawnRooms();
-        surface.BuildNavMesh();
+        //SpawnRooms();
+        //NavMeshSurface surface = Util.AddOrGetComponent<NavMeshSurface>(this.gameObject);
+        //surface.BuildNavMesh();
+        //player = Instantiate(Resources.Load<GameObject>("Player/Player"), new Vector3(0, 1, 0), Quaternion.identity);
     }
 
     private void SpawnRooms() //여기서 기획적으로 랜덤으로 방을 생성해야 할 것으로 보임

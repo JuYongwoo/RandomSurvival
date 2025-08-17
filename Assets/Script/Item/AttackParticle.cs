@@ -23,7 +23,7 @@ public class AttackParticle : MonoBehaviour
         Vector3 direction = (target.position - transform.position).normalized;
         transform.position += direction * speed * Time.deltaTime;
 
-        if (Vector3.Distance(transform.position, target.position) < 0.2f)
+        if (Vector3.Distance(transform.position, target.position) < 0.5f)
         {
             EnemyBase attackable = target.GetComponentInParent<EnemyBase>();
             if (attackable != null)
