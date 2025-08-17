@@ -45,9 +45,9 @@ public enum StatPanelEnum
         if (statPanelMap[StatPanelEnum.WeaponImg] == null
             || statPanelMap[StatPanelEnum.WeaponNameTxt] == null
             || statPanelMap[StatPanelEnum.WeaponDmgTxt] == null) return;
-        statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = getweaponInfo(weaponName).weaponName;
-        statPanelMap[StatPanelEnum.WeaponImg].GetComponent<Image>().sprite = getweaponInfo(weaponName).weaponImg;
-        statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = $"데미지 {getweaponInfo(weaponName).weaponDMG.ToString()}";
+        statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = getweaponInfo(weaponName).Name;
+        statPanelMap[StatPanelEnum.WeaponImg].GetComponent<Image>().sprite = getweaponInfo(weaponName).Icon;
+        statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = $"데미지 {getweaponInfo(weaponName).BaseDMG.ToString()}";
 
     }
 }

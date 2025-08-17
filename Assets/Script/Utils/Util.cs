@@ -61,6 +61,18 @@ public class Util
         return resources[0];
     }
 
+    public static Dictionary<TEnum, TAsset> MapEnumToChildFile<TEnum, TAsset>(string basePath, string fileName)
+    where TEnum : Enum
+    where TAsset : UnityEngine.Object
+    {
+        var dict = new Dictionary<TEnum, TAsset>();
+        foreach (TEnum e in Enum.GetValues(typeof(TEnum)))
+        {
+            dict[e] = Resources.Load<TAsset>($"{basePath}/{e}/{fileName}");
+        }
+        return dict;
+    }
+
     public static T AddOrGetComponent<T>(GameObject go) where T : UnityEngine.Component
     {
         T component = go.GetComponent<T>();

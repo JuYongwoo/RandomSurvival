@@ -25,12 +25,12 @@ public class StatManager
         // 더이상 액션에 추가하거나 변경할 필요가 없는 정적 매핑들
         Player.deltaHP = PlayerStatDB.deltaHP;
         EnemyBase.deltaPlayerEXP = PlayerStatDB.deltaEXP;
-        StatPanel.getweaponInfo = (WeaponDatabase.Weapons weapon) => WeaponStatDB.GetWeaponInfo(weapon);
-        PlayerStateMachine.getPlayerWeaponProjectile = () => WeaponStatDB.GetWeaponInfo(PlayerStatDB.Current.CurrentWeapon).weaponProjectile; //현재 플레이어가 장착한 무기의 투사체를 반환
-        PlayerStateMachine.getPlayerWeaponFireSound = () => WeaponStatDB.GetWeaponInfo(PlayerStatDB.Current.CurrentWeapon).weaponFireSound; //현재 플레이어가 장착한 무기의 발사 소리를 반환
+        StatPanel.getweaponInfo = (WeaponDatabase.Weapons weapon) => WeaponStatDB.GetInfo(weapon);
+        PlayerStateMachine.getPlayerWeaponProjectile = () => WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).Projectile; //현재 플레이어가 장착한 무기의 투사체를 반환
+        PlayerStateMachine.getPlayerWeaponFireSound = () => WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).FireSfx; //현재 플레이어가 장착한 무기의 발사 소리를 반환
         AttackParticle.getCurrentPlayerDamage = () =>
-        PlayerStatDB.Current.attackUpgrade * WeaponStatDB.GetWeaponInfo(PlayerStatDB.Current.CurrentWeapon).weaponUpgradeDMGDelta //무기 업그레이드 레벨 * 무기 업그레이드 데미지 델타
-        + WeaponStatDB.GetWeaponInfo(PlayerStatDB.Current.CurrentWeapon).weaponDMG; // + 현재 무기 기본 데미지 = 현재 플레이어 공격력
+        PlayerStatDB.Current.attackUpgrade * WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).UpgradeDMGDelta //무기 업그레이드 레벨 * 무기 업그레이드 데미지 델타
+        + WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).BaseDMG; // + 현재 무기 기본 데미지 = 현재 플레이어 공격력
 
     }
 }

@@ -37,7 +37,7 @@ public class PlayerDatabase
 
     public PlayerDatabase()
     {
-        PlayerDataSO playerData = Util.LoadOneResource<PlayerDataSO>("GameData/Player/");
+        PlayerDataSO playerData = Util.LoadOneResource<PlayerDataSO>("Player");
         Current = new PlayerCurrentStat(playerData.MaxHP, playerData.BaseMoveSpeed); //player가 여러개가 되면 weapon처럼 맵으로 바꿔야
     }
 

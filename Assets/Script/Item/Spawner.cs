@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour
     private void Awake()
     {
         cacheChilds();
-        enemyPrefab = Resources.Load<GameObject>("Prefabs/Wolf");
+        enemyPrefab = Resources.Load<GameObject>("Enemy/Wolf");
     }
 
     private void OnTriggerEnter(Collider other)

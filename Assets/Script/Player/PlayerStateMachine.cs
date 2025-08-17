@@ -48,8 +48,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     private void Awake()
     {
-        if (moveMarkPrefab == null)
-            moveMarkPrefab = Resources.Load<GameObject>("Prefabs/MoveMark");
+        moveMarkPrefab = Resources.Load<GameObject>("Player/MoveMark");
 
         agent = GetComponent<NavMeshAgent>();
         agent.speed = 0.01f;

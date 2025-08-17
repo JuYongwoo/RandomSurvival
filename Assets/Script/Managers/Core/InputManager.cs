@@ -15,7 +15,7 @@ public class InputManager
 
     public void OnAwake()
     {
-        attackCursor = Resources.Load<Texture2D>("AttackIcon");
+        attackCursor = Resources.Load<Texture2D>("Player/AttackIcon");
 
     }
 
@@ -71,7 +71,6 @@ public class InputManager
 
     private void setCursor(Texture2D attackCursor)
     {
-        if (currentCursor == attackCursor) return;
         currentCursor = attackCursor;
         Cursor.SetCursor(currentCursor, Vector2.zero, CursorMode.Auto);
     }

@@ -11,7 +11,7 @@ public class PlayerFace : MonoBehaviour
     {
 
         Faceanim = Util.AddOrGetComponent<Animator>(gameObject);
-        Faceanim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animations/Face");
+        Faceanim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Player/Face");
         Faceanim.SetBool("Damaged", false);
 
 
