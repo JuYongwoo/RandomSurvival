@@ -249,11 +249,9 @@ public class PlayerStateMachine : MonoBehaviour
 
         if (getPlayerWeaponFireSound() != null) ManagerObject.am.PlayAudioClip(getPlayerWeaponFireSound());
         var particle = Instantiate(getPlayerWeaponProjectile(), transform.position + Vector3.up * 1.2f, Quaternion.identity);
-        var attackParticle = particle.GetComponent<AttackParticle>();
+        var attackParticle = particle.GetComponent<AttackProjectile>();
         if (attackParticle != null && currentTarget != null)
             attackParticle.SetTarget(currentTarget.transform);
-
-        StartCoroutine(MoveParticleToTarget(particle, currentTarget?.transform.position ?? transform.position));
 
         yield return new WaitForSeconds(1f);
 

@@ -13,6 +13,7 @@ public class WeaponDatabase
         public Sprite Icon { get; }
         public float BaseDMG { get; }
         public float UpgradeDMGDelta { get; }
+        public float ProjectileSpeed { get; }
         public AudioClip FireSfx { get; }
         public GameObject Projectile { get; }
 
@@ -22,6 +23,7 @@ public class WeaponDatabase
             Icon = icon;
             BaseDMG = so.BaseDamage;
             UpgradeDMGDelta = so.UpgradeDamageDelta;
+            ProjectileSpeed = so.ProjectileSpeed;
             FireSfx = sfx;
             Projectile = proj;
         }

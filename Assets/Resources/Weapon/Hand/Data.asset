@@ -14,9 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseDamage: 10
   UpgradeDamageDelta: 2
-  FireRate: 0
+  ProjectileSpeed: 10
   ReloadTime: 0
   Range: 0
   BulletSpeed: 0
-  FireSound: {fileID: 0}
-  EffectPrefab: {fileID: 0}

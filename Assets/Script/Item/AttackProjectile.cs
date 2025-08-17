@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-public class AttackParticle : MonoBehaviour
+public class AttackProjectile : MonoBehaviour
 {
     public static Func<float> getCurrentPlayerDamage;
-    public float speed = 5f;
+    public static Func<float> getProjectileSpeed;
     private Transform target;
 
     public void SetTarget(Transform t)
@@ -21,7 +21,7 @@ public class AttackParticle : MonoBehaviour
         }
 
         Vector3 direction = (target.position - transform.position).normalized;
-        transform.position += direction * speed * Time.deltaTime;
+        transform.position += direction * getProjectileSpeed() * Time.deltaTime;
 
         if (Vector3.Distance(transform.position, target.position) < 0.5f)
         {
