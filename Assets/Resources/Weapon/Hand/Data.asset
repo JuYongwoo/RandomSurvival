@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseDamage: 10
   UpgradeDamageDelta: 2
-  ProjectileSpeed: 10
-  ReloadTime: 0
-  Range: 0
-  BulletSpeed: 0
+  ProjectileSpeed: 20
+  ReloadTime: 0.5
+  Range: 20

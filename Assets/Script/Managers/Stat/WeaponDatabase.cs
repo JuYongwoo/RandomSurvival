@@ -10,20 +10,24 @@ public class WeaponDatabase
     public readonly struct WeaponInfo
     {
         public string Name { get; }
-        public Sprite Icon { get; }
         public float BaseDMG { get; }
         public float UpgradeDMGDelta { get; }
         public float ProjectileSpeed { get; }
+        public float ReloadTime { get; }
+        public float AttackRange { get; }
+        public Sprite Icon { get; }
         public AudioClip FireSfx { get; }
         public GameObject Projectile { get; }
 
         public WeaponInfo(string name, WeaponDataSO so, Sprite icon, AudioClip sfx, GameObject proj)
         {
             Name = name;
-            Icon = icon;
             BaseDMG = so.BaseDamage;
             UpgradeDMGDelta = so.UpgradeDamageDelta;
             ProjectileSpeed = so.ProjectileSpeed;
+            ReloadTime = so.ReloadTime;
+            AttackRange = so.Range;
+            Icon = icon;
             FireSfx = sfx;
             Projectile = proj;
         }

@@ -27,6 +27,8 @@ public class StatManager
         StatPanel.getweaponInfo = (WeaponDatabase.Weapons weapon) => WeaponStatDB.GetInfo(weapon);
         PlayerStateMachine.getPlayerWeaponProjectile = () => WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).Projectile; //현재 플레이어가 장착한 무기의 투사체를 반환
         PlayerStateMachine.getPlayerWeaponFireSound = () => WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).FireSfx; //현재 플레이어가 장착한 무기의 발사 소리를 반환
+        PlayerStateMachine.getPlayerWeaponReloadTime = () => WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).ReloadTime; //현재 플레이어가 장착한 무기의 재장전 시간을 반환
+        PlayerStateMachine.getPlayerWeaponAttackRange = () => WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).AttackRange; //현재 플레이어가 장착한 무기의 공격 범위를 반환
         AttackProjectile.getCurrentPlayerDamage = () =>
         PlayerStatDB.Current.attackUpgrade * WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).UpgradeDMGDelta //무기 업그레이드 레벨 * 무기 업그레이드 데미지 델타
         + WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).BaseDMG; // + 현재 무기 기본 데미지 = 현재 플레이어 공격력

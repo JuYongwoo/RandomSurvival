@@ -8,6 +8,5 @@ public class WeaponDataSO : ScriptableObject
     public float ProjectileSpeed;
     public float ReloadTime;
     public float Range;
-    public float BulletSpeed;
 
 }

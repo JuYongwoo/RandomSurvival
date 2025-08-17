@@ -33,6 +33,8 @@ public class PlayerStateMachine : MonoBehaviour
     public static Func<Animator> animator;
     public static Func<AudioClip> getPlayerWeaponFireSound;
     public static Func<GameObject> getPlayerWeaponProjectile;
+    public static Func<float> getPlayerWeaponReloadTime;
+    public static Func<float> getPlayerWeaponAttackRange;
 
     private GameObject currentTarget;
     private Coroutine attackingCoroutine;
@@ -253,7 +255,7 @@ public class PlayerStateMachine : MonoBehaviour
         if (attackParticle != null && currentTarget != null)
             attackParticle.SetTarget(currentTarget.transform);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(getPlayerWeaponReloadTime());
 
         isAttacking = false;
     }
@@ -348,7 +350,7 @@ public class PlayerStateMachine : MonoBehaviour
     private bool IsInAttackRange(GameObject target)
     {
         if (target == null) return false;
-        return (transform.position - target.transform.position).sqrMagnitude <= 100f;
+        return (transform.position - target.transform.position).sqrMagnitude <= Math.Pow(getPlayerWeaponAttackRange(), 2);
     }
 
 
