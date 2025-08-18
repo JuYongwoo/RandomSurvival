@@ -14,9 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseDamage: 50
   UpgradeDamageDelta: 25
-  FireRate: 0
-  ReloadTime: 0
-  Range: 0
-  BulletSpeed: 0
-  FireSound: {fileID: 0}
-  EffectPrefab: {fileID: 0}
+  ProjectileSpeed: 30
+  ReloadTime: 0.1
+  Range: 30

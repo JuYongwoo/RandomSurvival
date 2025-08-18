@@ -24,17 +24,10 @@ public class StatManager
         Player.deltaHP = PlayerStatDB.deltaHP;
         EnemyBase.deltaPlayerEXP = PlayerStatDB.deltaEXP;
 
-        // 무기 조회
-        StatPanel.getweaponInfo = w => WeaponStatDB.GetInfo(w);
 
         // 현재 무기 정보 접근(중복 조회 방지용 로컬 함수)
         WeaponDatabase.WeaponInfo Curr() => WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon);
 
-        // PlayerStateMachine 의존성
-        PlayerStateMachine.getPlayerWeaponProjectile = () => Curr().Projectile;
-        PlayerStateMachine.getPlayerWeaponFireSound = () => Curr().FireSfx;
-        PlayerStateMachine.getPlayerWeaponReloadTime = () => Curr().ReloadTime;
-        PlayerStateMachine.getPlayerWeaponAttackRange = () => Curr().AttackRange;
 
         // 투사체 데미지 및 투사체 속도 설정
         AttackProjectile.getCurrentPlayerDamage = () =>

@@ -12,11 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de1e247146039944a786b95b0ce33f9, type: 3}
   m_Name: Data
   m_EditorClassIdentifier: 
-  BaseDamage: 30
-  UpgradeDamageDelta: 10
-  FireRate: 0
-  ReloadTime: 0
-  Range: 0
-  BulletSpeed: 0
-  FireSound: {fileID: 0}
-  EffectPrefab: {fileID: 0}
+  BaseDamage: 100
+  UpgradeDamageDelta: 50
+  ProjectileSpeed: 30
+  ReloadTime: 1
+  Range: 10

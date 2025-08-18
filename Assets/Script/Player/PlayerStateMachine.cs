@@ -26,10 +26,6 @@ public class PlayerStateMachine : MonoBehaviour
 
     public static Func<PlayerState> playerstate;
     public static Func<Animator> animator;
-    public static Func<AudioClip> getPlayerWeaponFireSound;
-    public static Func<GameObject> getPlayerWeaponProjectile;
-    public static Func<float> getPlayerWeaponReloadTime;
-    public static Func<float> getPlayerWeaponAttackRange;
 
     private GameObject currentTarget;
     private GameObject moveMarkPrefab;
@@ -243,13 +239,13 @@ public class PlayerStateMachine : MonoBehaviour
         if (currentTarget != null)
             transform.LookAt(currentTarget.transform.position);
 
-        if (getPlayerWeaponFireSound() != null) ManagerObject.am.PlayAudioClip(getPlayerWeaponFireSound());
-        var particle = Instantiate(getPlayerWeaponProjectile(), transform.position + Vector3.up * 1.2f, Quaternion.identity);
+        ManagerObject.am.PlayAudioClip(ManagerObject.playerStatObj.WeaponStatDB.GetInfo(ManagerObject.playerStatObj.PlayerStatDB.Current.CurrentWeapon).FireSfx);
+        var particle = Instantiate(ManagerObject.playerStatObj.WeaponStatDB.GetInfo(ManagerObject.playerStatObj.PlayerStatDB.Current.CurrentWeapon).Projectile, transform.position + Vector3.up * 1.2f, Quaternion.identity);
         var attackParticle = particle.GetComponent<AttackProjectile>();
         if (attackParticle != null && currentTarget != null)
             attackParticle.SetTarget(currentTarget.transform);
 
-        yield return new WaitForSeconds(getPlayerWeaponReloadTime());
+        yield return new WaitForSeconds(ManagerObject.playerStatObj.WeaponStatDB.GetInfo(ManagerObject.playerStatObj.PlayerStatDB.Current.CurrentWeapon).ReloadTime);
 
         isAttacking = false;
     }
@@ -330,21 +326,9 @@ public class PlayerStateMachine : MonoBehaviour
     private bool IsInAttackRange(GameObject target)
     {
         if (target == null) return false;
-        return (transform.position - target.transform.position).sqrMagnitude <= Math.Pow(getPlayerWeaponAttackRange(), 2);
+        return (transform.position - target.transform.position).sqrMagnitude <= Math.Pow(ManagerObject.playerStatObj.WeaponStatDB.GetInfo(ManagerObject.playerStatObj.PlayerStatDB.Current.CurrentWeapon).AttackRange, 2);
     }
 
-
-
-    private bool IsSimilarPath(NavMeshPath a, NavMeshPath b)
-    {
-        if (a == null || b == null) return false;
-        var ac = a.corners; var bc = b.corners;
-        if (ac.Length != bc.Length) return false;
-        for (int i = 0; i < ac.Length; i++)
-            if ((ac[i] - bc[i]).sqrMagnitude > 0.04f)
-                return false;
-        return true;
-    }
 
     private void DestroyCurrentMoveMark()
     {

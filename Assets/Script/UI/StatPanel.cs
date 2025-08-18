@@ -20,7 +20,6 @@ public enum StatPanelEnum
 
 
     private Dictionary<StatPanelEnum, GameObject> statPanelMap;
-    public static Func<WeaponDatabase.Weapons, WeaponDatabase.WeaponInfo> getweaponInfo;
 
 
 
@@ -45,9 +44,9 @@ public enum StatPanelEnum
         if (statPanelMap[StatPanelEnum.WeaponImg] == null
             || statPanelMap[StatPanelEnum.WeaponNameTxt] == null
             || statPanelMap[StatPanelEnum.WeaponDmgTxt] == null) return;
-        statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = getweaponInfo(weaponName).Name;
-        statPanelMap[StatPanelEnum.WeaponImg].GetComponent<Image>().sprite = getweaponInfo(weaponName).Icon;
-        statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = $"데미지 {getweaponInfo(weaponName).BaseDMG.ToString()}";
+        statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = ManagerObject.playerStatObj.WeaponStatDB.GetInfo(weaponName).Name;
+        statPanelMap[StatPanelEnum.WeaponImg].GetComponent<Image>().sprite = ManagerObject.playerStatObj.WeaponStatDB.GetInfo(weaponName).Icon;
+        statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = $"데미지 {ManagerObject.playerStatObj.WeaponStatDB.GetInfo(weaponName).BaseDMG.ToString()}";
 
     }
 }

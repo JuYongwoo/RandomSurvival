@@ -169,6 +169,14 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - WeaponDataSO
+  - m_GUID: 14f6af3f6b4e64e4981251b561e348e6
+    m_Address: Assets/Resource/Etc/WeaponRoom.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2ba6e0bcdd84d23448454e9209e241ca
+    m_Address: Assets/Resource/Item/Diamond.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 772c04c5846f0e24e90ff54c26edc7b0, type: 2}
   m_SchemaSet:
