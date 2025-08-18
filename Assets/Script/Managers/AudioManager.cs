@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class AudioManager
 {
@@ -21,8 +22,8 @@ public class AudioManager
         GameObject target = ManagerObject.instance.gameObject;
 
         soundsMap = new Dictionary<Sounds, AudioClip>();
-        soundsMap[Sounds.BGM] = Util.LoadOneResource<AudioClip>("Etc/BGM");
-        soundsMap[Sounds.hitsound] = Util.LoadOneResource<AudioClip>("Player/hitsound");
+        soundsMap[Sounds.BGM] = Addressables.LoadAssetAsync<AudioClip>("BGM").WaitForCompletion();
+        soundsMap[Sounds.hitsound] = Addressables.LoadAssetAsync<AudioClip>("hitsound").WaitForCompletion();
 
         effectsSource = Util.AddOrGetComponent<AudioSource>(target);
         bgmSource = Util.AddOrGetComponent<AudioSource>(target); // 이름 지정해서 두 개 분리

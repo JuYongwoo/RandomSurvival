@@ -1,38 +1,45 @@
+using System.Threading.Tasks;
 using UnityEngine;
-
+using static PlayerDatabase;
 
 public class StatManager
 {
-
     public WeaponDatabase WeaponStatDB { get; private set; }
     public PlayerDatabase PlayerStatDB { get; private set; }
+    public bool IsReady { get; private set; }
 
-
+    // 호출부에서 await 필수
     public void OnAwake()
     {
+        WeaponStatDB = new WeaponDatabase();
+        PlayerStatDB = new PlayerDatabase();
 
-        WeaponStatDB = new WeaponDatabase(); //무기 데이터베이스 초기화 //초기화 함수에서 WeaponDataSO를 불러와서 무기 정보를 초기화한다.
-        PlayerStatDB = new PlayerDatabase(); //플레이어 데이터베이스 초기화 //초기화 함수에서 PlayerDataSO를 불러와서 플레이어 정보를 초기화한다.
-        mapOtherActions();
+        MapOtherActions();   // 모든 DB 로드 완료 후 바인딩
+        IsReady = true;
     }
 
-
-
-    private void mapOtherActions()
+    private void MapOtherActions()
     {
-        // 플레이어의 현재 HP, EXP, 무기 정보 등을 다른 클래스에서 사용할 수 있도록 매핑
-        // 더이상 액션에 추가하거나 변경할 필요가 없는 정적 매핑들
+        // 플레이어/적 상호작용
         Player.deltaHP = PlayerStatDB.deltaHP;
         EnemyBase.deltaPlayerEXP = PlayerStatDB.deltaEXP;
-        StatPanel.getweaponInfo = (WeaponDatabase.Weapons weapon) => WeaponStatDB.GetInfo(weapon);
-        PlayerStateMachine.getPlayerWeaponProjectile = () => WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).Projectile; //현재 플레이어가 장착한 무기의 투사체를 반환
-        PlayerStateMachine.getPlayerWeaponFireSound = () => WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).FireSfx; //현재 플레이어가 장착한 무기의 발사 소리를 반환
-        PlayerStateMachine.getPlayerWeaponReloadTime = () => WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).ReloadTime; //현재 플레이어가 장착한 무기의 재장전 시간을 반환
-        PlayerStateMachine.getPlayerWeaponAttackRange = () => WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).AttackRange; //현재 플레이어가 장착한 무기의 공격 범위를 반환
-        AttackProjectile.getCurrentPlayerDamage = () =>
-        PlayerStatDB.Current.attackUpgrade * WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).UpgradeDMGDelta //무기 업그레이드 레벨 * 무기 업그레이드 데미지 델타
-        + WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).BaseDMG; // + 현재 무기 기본 데미지 = 현재 플레이어 공격력
-        AttackProjectile.getProjectileSpeed = () => WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon).ProjectileSpeed; //현재 플레이어의 투사체 속도를 반환
 
+        // 무기 조회
+        StatPanel.getweaponInfo = w => WeaponStatDB.GetInfo(w);
+
+        // 현재 무기 정보 접근(중복 조회 방지용 로컬 함수)
+        WeaponDatabase.WeaponInfo Curr() => WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon);
+
+        // PlayerStateMachine 의존성
+        PlayerStateMachine.getPlayerWeaponProjectile = () => Curr().Projectile;
+        PlayerStateMachine.getPlayerWeaponFireSound = () => Curr().FireSfx;
+        PlayerStateMachine.getPlayerWeaponReloadTime = () => Curr().ReloadTime;
+        PlayerStateMachine.getPlayerWeaponAttackRange = () => Curr().AttackRange;
+
+        // 투사체/데미지
+        AttackProjectile.getCurrentPlayerDamage = () =>
+            PlayerStatDB.Current.attackUpgrade * Curr().UpgradeDMGDelta + Curr().BaseDMG;
+
+        AttackProjectile.getProjectileSpeed = () => Curr().ProjectileSpeed;
     }
 }

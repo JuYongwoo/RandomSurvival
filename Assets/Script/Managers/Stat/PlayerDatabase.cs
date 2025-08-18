@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using static AudioManager;
+using static WeaponDatabase;
 public class PlayerDatabase
 {
 
@@ -37,7 +40,9 @@ public class PlayerDatabase
 
     public PlayerDatabase()
     {
-        PlayerDataSO playerData = Util.LoadOneResource<PlayerDataSO>("Player");
+        PlayerDataSO playerData = new PlayerDataSO();
+        playerData = Addressables.LoadAssetAsync<PlayerDataSO>("PlayerDataSO").WaitForCompletion();
+
         Current = new PlayerCurrentStat(playerData.MaxHP, playerData.BaseMoveSpeed); //player가 여러개가 되면 weapon처럼 맵으로 바꿔야
     }
 

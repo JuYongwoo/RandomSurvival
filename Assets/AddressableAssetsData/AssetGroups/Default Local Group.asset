@@ -1,0 +1,177 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 20bf1da51c24a2e41bce4869cb0657dd
+  m_SerializeEntries:
+  - m_GUID: 5f1583f7387cf0446b7974e59d94fc51
+    m_Address: Assets/Resource/Etc/Room.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9f82383d945d8a84eb6ab3c5671c2fcd
+    m_Address: Assets/Resource/Player/Main Camera.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 466615c2cd459f44fbbad5345cc536a1
+    m_Address: Hand
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponIcon
+  - m_GUID: 05d62ff644669494fa2e52da9757c09b
+    m_Address: Bow
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDataSO
+  - m_GUID: 9e9108e35e1581a42b6a5130f603fbd2
+    m_Address: Assets/Resource/Player/PlayerFaceCamera.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9b22fd4b32586ef47a0a8670fcbc4cc2
+    m_Address: Bow
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponIcon
+  - m_GUID: e168f283855f63b45bbcd42119ada3b5
+    m_Address: Assets/Resource/Etc/Floor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ac933c62362eae542b78fbce085d4ab6
+    m_Address: Assets/Resource/Player/Player.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9e200c6d4e38a4841b0403a7f2bca03d
+    m_Address: Hand
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponProjectile
+  - m_GUID: ee5354fc5eb68b44680396ea0e231f43
+    m_Address: PlayerDataSO
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 27a0894692e2a1347905b5b3e7d87b51
+    m_Address: Assets/Resource/Etc/GoldCoin.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9c2d8bb60ffcfca40a0fb137c34c379c
+    m_Address: Magic
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponIcon
+  - m_GUID: 575c026d759feed4ca4358721018db49
+    m_Address: Assets/Resource/Enemy/Gate.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 654715f29880d704a9a272ace81beb86
+    m_Address: Bow
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponProjectile
+  - m_GUID: 73a96a7d5287b5942a442b2f1f4de429
+    m_Address: Hand
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDataSO
+  - m_GUID: 9c4b41dae0eb91a49aea21d89b3a9d80
+    m_Address: Assets/Resource/Etc/ManagerObject.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a345037670ce5ed4a8926ca492c5e450
+    m_Address: PlayerFace
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4f10c53862cf2f541b50406d12bd5e4f
+    m_Address: Assets/Resource/Etc/tele.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: dfb4e9232c696ae4485384f7b92c71ca
+    m_Address: Wolf
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2c2871192044c3a40ad40ef697e4beb0
+    m_Address: Assets/Resource/Player/Portrait.renderTexture
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a913995da878ed04f9c8817c302f26f1
+    m_Address: hitsound
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: befe9775dd61e5942bda1e145a219cc9
+    m_Address: coinsound
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 315ae25a05632e54a9ef9f88984378e7
+    m_Address: Assets/Resource/Enemy/Enemy.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0d02b59997b150f489360cbafd327fd0
+    m_Address: Assets/Resource/Etc/Spawner.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1d332f5051966f245b94fa4e8335a920
+    m_Address: AttackIcon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 989c852a0d54b1e4185951798d3bf50c
+    m_Address: Hand
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponFireSound
+  - m_GUID: 1cf811c0bc0086e4e83132dc1981d307
+    m_Address: Bow
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponFireSound
+  - m_GUID: 00b0861e2b6ff64429c22b43d17e25bf
+    m_Address: Magic
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponFireSound
+  - m_GUID: bf166db5852e80d428229e48a7a7d4f6
+    m_Address: Assets/Resource/Player/Player.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 460b03d9333a85f4c97e2162649c64d5
+    m_Address: Magic
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponProjectile
+  - m_GUID: 34776c45d3a8bfd40a3dfd0c7bd296ad
+    m_Address: BGM
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ffd42a6fda4a0b0428449ef119879275
+    m_Address: Assets/Resource/Etc/MainSceneObject.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f211accc6abd40f42ae79e1adbf15e18
+    m_Address: Assets/Resource/Etc/InGameUI.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 09e3448ebd6343d4e934b35b21f64609
+    m_Address: MoveMark
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cb25e0675997ca34d9d66fdba5277713
+    m_Address: Magic
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDataSO
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 772c04c5846f0e24e90ff54c26edc7b0, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 3a8f3bf06e034c44eac2a11bdc00e05b, type: 2}
+    - {fileID: 11400000, guid: 8403ff2f5d8310045965803443a7bb43, type: 2}

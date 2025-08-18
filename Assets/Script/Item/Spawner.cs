@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class Spawner : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class Spawner : MonoBehaviour
     private void Awake()
     {
         cacheChilds();
-        enemyPrefab = Resources.Load<GameObject>("Enemy/Wolf");
+        enemyPrefab = Addressables.LoadAssetAsync<GameObject>("Wolf").WaitForCompletion();
+
     }
 
     private void OnTriggerEnter(Collider other)

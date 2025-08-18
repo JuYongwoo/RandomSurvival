@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class PlayerFace : MonoBehaviour
 {
@@ -11,7 +12,10 @@ public class PlayerFace : MonoBehaviour
     {
 
         Faceanim = Util.AddOrGetComponent<Animator>(gameObject);
-        Faceanim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Player/Face");
+        Addressables.LoadAssetAsync<RuntimeAnimatorController>("PlayerFace").Completed += h =>
+        {
+            Faceanim.runtimeAnimatorController = h.Result;
+        };
         Faceanim.SetBool("Damaged", false);
 
 

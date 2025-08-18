@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class Util
 {
@@ -41,6 +44,58 @@ public class Util
         foreach (T s in System.Enum.GetValues(typeof(T)))
         {
             dict[s] = Resources.Load<T2>(filePath + "/" + s.ToString());
+        }
+
+        return dict;
+    }
+
+    public static Dictionary<TEnum, TObject> MapEnumToAddressables<TEnum, TObject>(string label)
+        where TEnum : Enum
+        where TObject : UnityEngine.Object
+    {
+        var dict = new Dictionary<TEnum, TObject>();
+
+        // Label에 해당하는 리소스 location 전부 동기 로드
+        var locHandle = Addressables.LoadResourceLocationsAsync(label, typeof(TObject));
+        var locations = locHandle.WaitForCompletion();
+
+        if (locations == null || locations.Count == 0)
+        {
+            Debug.LogWarning($"[Util] No Addressable assets found for label {label}");
+            return dict;
+        }
+
+        foreach (TEnum e in Enum.GetValues(typeof(TEnum)))
+        {
+            string enumName = e.ToString();
+
+            foreach (var loc in locations)
+            {
+                if (loc.PrimaryKey.Equals(enumName, StringComparison.OrdinalIgnoreCase))
+                {
+                    // Asset 동기 로드
+                    var assetHandle = Addressables.LoadAssetAsync<TObject>(loc);
+                    var asset = assetHandle.WaitForCompletion();
+
+                    if (asset != null)
+                    {
+                        dict[e] = asset;
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"[Util] Failed to load asset for key: {enumName}");
+                        dict[e] = null;
+                    }
+                    break;
+                }
+            }
+
+            // 해당 enum 값에 맞는 key를 못 찾았을 때도 null 세팅
+            if (!dict.ContainsKey(e))
+            {
+                Debug.LogWarning($"[Util] No matching asset for Enum {enumName} in label {label}");
+                dict[e] = null;
+            }
         }
 
         return dict;

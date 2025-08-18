@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using static AudioManager;
 
 public class Coin : MonoBehaviour {
 
@@ -6,7 +8,8 @@ public class Coin : MonoBehaviour {
 
     private void Awake()
     {
-        coinsound = Resources.Load<AudioClip>("coinsound");
+        coinsound = Addressables.LoadAssetAsync<AudioClip>("coinsound").WaitForCompletion();
+
     }
 
 

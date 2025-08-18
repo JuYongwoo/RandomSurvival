@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.AI;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public enum PlayerState
 {
@@ -48,9 +50,12 @@ public class PlayerStateMachine : MonoBehaviour
     private Vector3 lastRequestedOrigin;
     private NavMeshPath lastPath;
 
+    private AsyncOperationHandle<GameObject> _moveMarkHandle;
+
     private void Awake()
     {
-        moveMarkPrefab = Resources.Load<GameObject>("Player/MoveMark");
+        moveMarkPrefab = Addressables.LoadAssetAsync<GameObject>("MoveMark").WaitForCompletion();
+
 
         agent = GetComponent<NavMeshAgent>();
         agent.speed = 0.01f;

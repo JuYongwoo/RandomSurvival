@@ -1,5 +1,7 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class InputManager
 {
@@ -15,7 +17,7 @@ public class InputManager
 
     public void OnAwake()
     {
-        attackCursor = Resources.Load<Texture2D>("Player/AttackIcon");
+        attackCursor = Addressables.LoadAssetAsync<Texture2D>("AttackIcon").WaitForCompletion();
 
     }
 
