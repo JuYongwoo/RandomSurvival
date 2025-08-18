@@ -34,18 +34,13 @@ public class WeaponDatabase
             Projectile = proj;
         }
     }
-    private Dictionary<Weapons, WeaponDataSO> soMap;
-    private Dictionary<Weapons, Sprite> iconMap;
-    private Dictionary<Weapons, AudioClip> sfxMap;
-    private Dictionary<Weapons, GameObject> projMap;
-
 
     public WeaponDatabase()
     {
-        soMap = Util.MapEnumToAddressables<Weapons, WeaponDataSO>("WeaponDataSO"); //라벨 통해서 맵 등록
-        iconMap = Util.MapEnumToAddressables<Weapons, Sprite>("WeaponIcon");
-        sfxMap = Util.MapEnumToAddressables<Weapons, AudioClip>("WeaponFireSound");
-        projMap = Util.MapEnumToAddressables<Weapons, GameObject>("WeaponProjectile");
+        var soMap = Util.MapEnumToAddressables<Weapons, WeaponDataSO>("WeaponDataSO"); //라벨 통해서 맵 등록
+        var iconMap = Util.MapEnumToAddressables<Weapons, Sprite>("WeaponIcon");
+        var sfxMap = Util.MapEnumToAddressables<Weapons, AudioClip>("WeaponFireSound");
+        var projMap = Util.MapEnumToAddressables<Weapons, GameObject>("WeaponProjectile");
 
 
         _map = new Dictionary<Weapons, WeaponInfo>
