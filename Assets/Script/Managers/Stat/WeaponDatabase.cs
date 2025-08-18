@@ -42,7 +42,7 @@ public class WeaponDatabase
 
     public WeaponDatabase()
     {
-        soMap = Util.MapEnumToAddressables<Weapons, WeaponDataSO>("WeaponDataSO");
+        soMap = Util.MapEnumToAddressables<Weapons, WeaponDataSO>("WeaponDataSO"); //라벨 통해서 맵 등록
         iconMap = Util.MapEnumToAddressables<Weapons, Sprite>("WeaponIcon");
         sfxMap = Util.MapEnumToAddressables<Weapons, AudioClip>("WeaponFireSound");
         projMap = Util.MapEnumToAddressables<Weapons, GameObject>("WeaponProjectile");

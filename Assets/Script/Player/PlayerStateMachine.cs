@@ -24,13 +24,6 @@ public class PlayerStateMachine : MonoBehaviour
 {
     private PlayerState state;
 
-    [SerializeField] private float particleSpeed = 5f;
-    [SerializeField] private float requestInterval = 0.35f;
-    [SerializeField] private float targetMoveThreshold = 0.6f;
-    [SerializeField] private float selfMoveThreshold = 0.6f;
-
-    [SerializeField] private GameObject moveMarkPrefab;
-
     public static Func<PlayerState> playerstate;
     public static Func<Animator> animator;
     public static Func<AudioClip> getPlayerWeaponFireSound;
@@ -39,6 +32,7 @@ public class PlayerStateMachine : MonoBehaviour
     public static Func<float> getPlayerWeaponAttackRange;
 
     private GameObject currentTarget;
+    private GameObject moveMarkPrefab;
     private Coroutine attackingCoroutine;
     private bool isAttacking;
 
@@ -46,11 +40,6 @@ public class PlayerStateMachine : MonoBehaviour
     private Vector3 currentDestination;
 
     private NavMeshAgent agent;
-    private Vector3 lastRequestedTarget;
-    private Vector3 lastRequestedOrigin;
-    private NavMeshPath lastPath;
-
-    private AsyncOperationHandle<GameObject> _moveMarkHandle;
 
     private void Awake()
     {
@@ -310,20 +299,6 @@ public class PlayerStateMachine : MonoBehaviour
         return closestThreat ?? closestAny;
     }
 
-    private IEnumerator MoveParticleToTarget(GameObject particle, Vector3 targetPos)
-    {
-        const float threshold = 0.1f;
-
-        while (particle != null && Vector3.Distance(particle.transform.position, targetPos) > threshold)
-        {
-            Vector3 dir = (targetPos - particle.transform.position).normalized;
-            particle.transform.position += dir * particleSpeed * Time.deltaTime;
-            yield return null;
-        }
-
-        if (particle != null)
-            Destroy(particle);
-    }
 
     private void MoveStart(Vector3 dest)
     {

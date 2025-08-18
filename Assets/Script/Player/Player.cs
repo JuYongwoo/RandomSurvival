@@ -28,6 +28,10 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
+        ManagerObject.playerStatObj.PlayerStatDB.deltaEXP(0); // 초기화용
+        ManagerObject.playerStatObj.PlayerStatDB.deltaHP(0); // 초기화용
+        ManagerObject.playerStatObj.PlayerStatDB.setCurrentWeapon(WeaponDatabase.Weapons.Hand); // 초기화용
+
         canWarp = true;
 
     }

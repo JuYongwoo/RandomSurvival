@@ -19,7 +19,7 @@ public class PlayerDatabase
             EXP = 0;
             attackUpgrade = 0;
             HPUpgrade = 0;
-            CurrentWeapon = WeaponDatabase.Weapons.Hand; // 기본 무기는 맨손으로 설정
+            CurrentWeapon = WeaponDatabase.Weapons.Hand;
         }
 
 
@@ -44,6 +44,7 @@ public class PlayerDatabase
         playerData = Addressables.LoadAssetAsync<PlayerDataSO>("PlayerDataSO").WaitForCompletion();
 
         Current = new PlayerCurrentStat(playerData.MaxHP, playerData.BaseMoveSpeed); //player가 여러개가 되면 weapon처럼 맵으로 바꿔야
+
     }
 
     public void deltaHP(float delta)

@@ -37,6 +37,8 @@ public class Util
     }
 
 
+
+    //deprecated: Resources.LoadAll을 사용 방식 -> Addressables로 변경
     static public Dictionary<T, T2> mapDictionaryWithLoad<T, T2>(string filePath) where T : Enum where T2 : UnityEngine.Object
     {
         Dictionary<T, T2> dict = new Dictionary<T, T2>();
@@ -49,7 +51,7 @@ public class Util
         return dict;
     }
 
-    public static Dictionary<TEnum, TObject> MapEnumToAddressables<TEnum, TObject>(string label)
+    public static Dictionary<TEnum, TObject> MapEnumToAddressables<TEnum, TObject>(string label) //string label 라벨과 일치하는 오브젝트를 Enum으로 매핑
         where TEnum : Enum
         where TObject : UnityEngine.Object
     {

@@ -36,7 +36,7 @@ public class StatManager
         PlayerStateMachine.getPlayerWeaponReloadTime = () => Curr().ReloadTime;
         PlayerStateMachine.getPlayerWeaponAttackRange = () => Curr().AttackRange;
 
-        // 투사체/데미지
+        // 투사체 데미지 및 투사체 속도 설정
         AttackProjectile.getCurrentPlayerDamage = () =>
             PlayerStatDB.Current.attackUpgrade * Curr().UpgradeDMGDelta + Curr().BaseDMG;
 
