@@ -56,6 +56,7 @@ public class MapMaker : MonoBehaviour
 
         Instantiate(playerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity);
 
+        GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 
     private void SpawnRooms() //여기서 기획적으로 랜덤으로 방을 생성해야 할 것으로 보임

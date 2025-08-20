@@ -25,6 +25,9 @@ public class TimePanel : MonoBehaviour
     private void flowTime ()
     {
         time--;
-        TimePanelmap[TimePanelEnum.RemainingText].GetComponent<Text>().text = time / 60 + ":" + time % 60;
+        string minutesString = time / 60 < 10 ? $"0{(time / 60)}" : $"{(time / 60)}"; // 분이 10보다 작으면 앞에 0을 붙임
+        string seconsdString = time % 60 < 10 ? $"0{(time % 60)}" : $"{(time % 60)}"; // 초가 10보다 작으면 앞에 0을 붙임
+        string timeString = $"{minutesString}:{seconsdString}";
+        TimePanelmap[TimePanelEnum.RemainingText].GetComponent<Text>().text = timeString;
     }
 }
