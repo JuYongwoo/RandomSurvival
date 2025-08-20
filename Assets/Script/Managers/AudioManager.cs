@@ -31,6 +31,11 @@ public class AudioManager
         bgmSource.playOnAwake = false;
     }
 
+    public void onStart()
+    {
+        PlayBGM(AudioManager.Sounds.BGM);
+    }
+
     public void PlaySound(Sounds sound, float volume = 1f)
     {
         effectsSource.PlayOneShot(soundsMap[sound], volume);

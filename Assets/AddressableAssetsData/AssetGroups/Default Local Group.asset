@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 20bf1da51c24a2e41bce4869cb0657dd
   m_SerializeEntries:
   - m_GUID: 5f1583f7387cf0446b7974e59d94fc51
-    m_Address: Assets/Resource/Etc/Room.prefab
+    m_Address: NormalRoom
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 9f82383d945d8a84eb6ab3c5671c2fcd
@@ -140,7 +140,7 @@ MonoBehaviour:
     m_SerializedLabels:
     - WeaponFireSound
   - m_GUID: bf166db5852e80d428229e48a7a7d4f6
-    m_Address: Assets/Resource/Player/Player.prefab
+    m_Address: Player
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 460b03d9333a85f4c97e2162649c64d5
@@ -170,11 +170,19 @@ MonoBehaviour:
     m_SerializedLabels:
     - WeaponDataSO
   - m_GUID: 14f6af3f6b4e64e4981251b561e348e6
-    m_Address: Assets/Resource/Etc/WeaponRoom.prefab
+    m_Address: WeaponRoom
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 2ba6e0bcdd84d23448454e9209e241ca
     m_Address: Assets/Resource/Item/Diamond.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2e887e7817139f44ea7e20b3e93e115b
+    m_Address: Map
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a13be892809af5643b678a796d881ea1
+    m_Address: StartRoom
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

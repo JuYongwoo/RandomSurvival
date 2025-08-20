@@ -28,6 +28,7 @@ public class ManagerObject : MonoBehaviour
     {
         Screen.SetResolution(1600, 900, false);
         pool.Init();
+        am.onStart();
 
     }
 

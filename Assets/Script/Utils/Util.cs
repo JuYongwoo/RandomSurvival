@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.TextCore.Text;
 
 public class Util
 {
@@ -180,31 +175,39 @@ public class Util
         return null;
     }
 
-    static public string[,] LoadGrid(string filePath)
+    static public List<List<string>> LoadGrid(string AddressableFileKey)
     {
-        var locHandle = Addressables.LoadAssetAsync<UnityEngine.TextAsset>(filePath).WaitForCompletion();
+        var textAsset = Addressables.LoadAssetAsync<UnityEngine.TextAsset>(AddressableFileKey).WaitForCompletion();
+        if (textAsset == null)
+        {
+            Debug.LogError($"[Util] Addressable '{AddressableFileKey}'을(를) 찾을 수 없습니다.");
+            return new List<List<string>>();
+        }
 
-        string[] lines = locHandle.text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+        string[] lines = textAsset.text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+        if (lines.Length == 0)
+        {
+            Debug.LogWarning($"[Util] Addressable '{AddressableFileKey}'의 내용이 비어 있습니다.");
+            return new List<List<string>>();
+        }
 
-        // 첫 번째 줄을 기준으로 배열의 열 크기를 결정
         string[] firstLine = lines[0].Trim().Split(',');
-        int rows = lines.Length;
         int cols = firstLine.Length;
+        List<List<string>> gridvalue = new List<List<string>>();
 
-        // Grid 배열 초기화
-        string[,] gridvalue = new string[rows, cols];
-
-        for (int i = 0; i < rows; i++)
+        for (int i = 0; i < lines.Length; i++)
         {
             string[] row = lines[i].Trim().Split(',');
-            for (int j = 0; j < cols; j++)
+            var rowList = new List<string>();
+            for (int j = 0; j < cols && j < row.Length; j++)
             {
-
-                if (!string.IsNullOrEmpty(row[j].Trim())) // 빈 문자열 검사 추가
+                var cell = row[j].Trim();
+                if (!string.IsNullOrEmpty(cell))
                 {
-                    gridvalue[i, j] = row[j].Trim();
+                    rowList.Add(cell);
                 }
             }
+            gridvalue.Add(rowList);
         }
         return gridvalue;
     }
