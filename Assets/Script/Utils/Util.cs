@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.TextCore.Text;
 
 public class Util
 {
@@ -103,7 +106,7 @@ public class Util
         return dict;
     }
 
-    static public T LoadOneResource<T>(string filePath) where T : UnityEngine.Object
+    static public T LoadOneResourceInFolder<T>(string filePath) where T : UnityEngine.Object
     {
         T[] resources = Resources.LoadAll<T>(filePath);
         if (resources.Length == 0)
@@ -176,6 +179,36 @@ public class Util
 
         return null;
     }
+
+    static public string[,] LoadGrid(string filePath)
+    {
+        var locHandle = Addressables.LoadAssetAsync<UnityEngine.TextAsset>(filePath).WaitForCompletion();
+
+        string[] lines = locHandle.text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+
+        // 첫 번째 줄을 기준으로 배열의 열 크기를 결정
+        string[] firstLine = lines[0].Trim().Split(',');
+        int rows = lines.Length;
+        int cols = firstLine.Length;
+
+        // Grid 배열 초기화
+        string[,] gridvalue = new string[rows, cols];
+
+        for (int i = 0; i < rows; i++)
+        {
+            string[] row = lines[i].Trim().Split(',');
+            for (int j = 0; j < cols; j++)
+            {
+
+                if (!string.IsNullOrEmpty(row[j].Trim())) // 빈 문자열 검사 추가
+                {
+                    gridvalue[i, j] = row[j].Trim();
+                }
+            }
+        }
+        return gridvalue;
+    }
+
 
 
 }

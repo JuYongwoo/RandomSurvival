@@ -44,8 +44,8 @@ public enum StatPanelEnum
         if (statPanelMap[StatPanelEnum.WeaponImg] == null
             || statPanelMap[StatPanelEnum.WeaponNameTxt] == null
             || statPanelMap[StatPanelEnum.WeaponDmgTxt] == null) return;
-        statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = ManagerObject.playerStatObj.WeaponStatDB.GetInfo(weaponName).Name;
         statPanelMap[StatPanelEnum.WeaponImg].GetComponent<Image>().sprite = ManagerObject.playerStatObj.WeaponStatDB.GetInfo(weaponName).Icon;
+        statPanelMap[StatPanelEnum.WeaponNameTxt].GetComponent<Text>().text = ManagerObject.playerStatObj.WeaponStatDB.GetInfo(weaponName).Name;
         statPanelMap[StatPanelEnum.WeaponDmgTxt].GetComponent<Text>().text = $"µ¥¹ÌÁö {ManagerObject.playerStatObj.WeaponStatDB.GetInfo(weaponName).BaseDMG.ToString()}";
 
     }

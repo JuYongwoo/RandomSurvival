@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class DistanceRenderController : MonoBehaviour
 {
-    public GameObject target;          // 거리 기준 카메라
-    private const float disableDistance = 30f;  // 이 거리 이상이면 렌더 비활성화
+    private GameObject target;
+    private const float disableDistance = 30f;
     private List<Renderer> targetRenderers = new List<Renderer>();
 
 
     private void Start()
     {
-        target = this.gameObject; // 기본적으로 현재 게임 오브젝트를 타겟으로 설정
+        target = this.gameObject; // 현재 게임 오브젝트를 타겟으로 설정
 
         Renderer[] allRenderers = FindObjectsOfType<Renderer>();
         foreach (var r in allRenderers)
