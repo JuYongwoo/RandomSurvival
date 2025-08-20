@@ -2813,11 +2813,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3ea61a97d8b3f43a17ea135b3fd47e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleSpeed: 5
-  requestInterval: 0.35
-  targetMoveThreshold: 0.6
-  selfMoveThreshold: 0.6
-  moveMarkPrefab: {fileID: 0}
 --- !u!114 &8584202005534150801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2830,7 +2825,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836a4f02bfdeb4e479e3d4880d444c88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
 --- !u!195 &8584202005534150800
 NavMeshAgent:
   m_ObjectHideFlags: 0
