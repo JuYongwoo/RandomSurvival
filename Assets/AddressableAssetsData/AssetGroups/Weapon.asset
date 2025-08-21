@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Weapon
+  m_EditorClassIdentifier: 
+  m_GroupName: Weapon
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 2f6202d7d18e7ed49845baf37e4c8c9b
+  m_SerializeEntries:
+  - m_GUID: 989c852a0d54b1e4185951798d3bf50c
+    m_Address: Audio_HandFireSound
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponFireSound
+    - Hand
+  - m_GUID: 1cf811c0bc0086e4e83132dc1981d307
+    m_Address: Audio_BowFireSound
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponFireSound
+    - Bow
+  - m_GUID: 00b0861e2b6ff64429c22b43d17e25bf
+    m_Address: Audio_MagicFireSound
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponFireSound
+    - Magic
+  - m_GUID: 460b03d9333a85f4c97e2162649c64d5
+    m_Address: Prefab_MagicProjectile
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Magic
+    - WeaponProjectile
+  - m_GUID: cb25e0675997ca34d9d66fdba5277713
+    m_Address: SO_MagicData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDataSO
+    - Magic
+  - m_GUID: 73a96a7d5287b5942a442b2f1f4de429
+    m_Address: SO_HandData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDataSO
+    - Hand
+  - m_GUID: 654715f29880d704a9a272ace81beb86
+    m_Address: Prefab_BowProjectile
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponProjectile
+    - Bow
+  - m_GUID: 9c2d8bb60ffcfca40a0fb137c34c379c
+    m_Address: T2D_MagicIcon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponIcon
+    - Magic
+  - m_GUID: 466615c2cd459f44fbbad5345cc536a1
+    m_Address: T2D_HandIcon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponIcon
+    - Hand
+  - m_GUID: 05d62ff644669494fa2e52da9757c09b
+    m_Address: SO_BowData
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponDataSO
+    - Bow
+  - m_GUID: 9e200c6d4e38a4841b0403a7f2bca03d
+    m_Address: Prefab_HandProjectile
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponProjectile
+    - Hand
+  - m_GUID: 9b22fd4b32586ef47a0a8670fcbc4cc2
+    m_Address: T2D_BowIcon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - WeaponIcon
+    - Bow
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 772c04c5846f0e24e90ff54c26edc7b0, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: b0d7d42f1149d5849927ee48b3f3cea7, type: 2}
+    - {fileID: 11400000, guid: 26228971ff8e01448bfe8b6e262f47ee, type: 2}

@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceLocations;
 
 public class Util
 {
@@ -100,6 +103,65 @@ public class Util
 
         return dict;
     }
+
+    public static Dictionary<TEnum, TObject> MapEnumToAddressablesByLabels<TEnum, TObject>(string commonLabel)
+        where TEnum : Enum
+        where TObject : UnityEngine.Object
+    {
+        var dict = new Dictionary<TEnum, TObject>();
+
+        // 공통 라벨이 실제로 존재하는지 가볍게 확인(옵션)
+        var sanityHandle = Addressables.LoadResourceLocationsAsync(commonLabel, typeof(TObject));
+        var sanityLocations = sanityHandle.WaitForCompletion();
+        Addressables.Release(sanityHandle);
+
+        if (sanityLocations == null || sanityLocations.Count == 0)
+        {
+            Debug.LogWarning($"[Util] No Addressable assets found for common label: {commonLabel}");
+            return dict;
+        }
+
+        foreach (TEnum e in Enum.GetValues(typeof(TEnum)))
+        {
+            string enumLabel = e.ToString();
+
+            // 공통 라벨 + Enum 라벨 동시 만족 교집합 조회
+            IEnumerable keys = new object[] { commonLabel, enumLabel };
+            AsyncOperationHandle<IList<IResourceLocation>> locHandle = Addressables.LoadResourceLocationsAsync(keys, Addressables.MergeMode.Intersection, typeof(TObject));
+            IList<IResourceLocation> locations = locHandle.WaitForCompletion();
+            Addressables.Release(locHandle);
+
+            if (locations == null || locations.Count == 0)
+            {
+                Debug.LogWarning($"[Util] No asset found with labels [\"{commonLabel}\", \"{enumLabel}\"]");
+                dict[e] = null;
+                continue;
+            }
+
+            // 여러 개면 첫 번째를 사용(필요시 정책 조정)
+            var chosenLoc = locations[0];
+
+            var assetHandle = Addressables.LoadAssetAsync<TObject>(chosenLoc);
+            var asset = assetHandle.WaitForCompletion();
+            // 주의: 여기서 handle을 바로 Release하면 참조가 끊어질 수 있습니다.
+            // dict로 객체 참조만 넘기고 핸들은 버리면 메모리 관리가 애매해집니다.
+            // 기존 코드 스타일을 유지했지만, 실무에선 핸들 관리 전략을 권장(아래 참고).
+
+            if (asset != null)
+            {
+                dict[e] = asset;
+            }
+            else
+            {
+                Debug.LogWarning($"[Util] Failed to load asset for labels [\"{commonLabel}\", \"{enumLabel}\"]");
+                dict[e] = null;
+            }
+        }
+
+        return dict;
+    }
+
+
 
     static public T LoadOneResourceInFolder<T>(string filePath) where T : UnityEngine.Object
     {

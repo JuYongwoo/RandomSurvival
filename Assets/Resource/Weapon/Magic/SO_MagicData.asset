@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8de1e247146039944a786b95b0ce33f9, type: 3}
-  m_Name: SO_Data
+  m_Name: SO_MagicData
   m_EditorClassIdentifier: 
-  BaseDamage: 10
-  UpgradeDamageDelta: 2
-  ProjectileSpeed: 20
-  ReloadTime: 0.5
-  Range: 20
+  BaseDamage: 100
+  UpgradeDamageDelta: 50
+  ProjectileSpeed: 30
+  ReloadTime: 1
+  Range: 10

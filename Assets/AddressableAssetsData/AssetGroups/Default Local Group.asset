@@ -25,25 +25,10 @@ MonoBehaviour:
     m_Address: Assets/Resource/Player/Main Camera.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 466615c2cd459f44fbbad5345cc536a1
-    m_Address: Hand
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponIcon
-  - m_GUID: 05d62ff644669494fa2e52da9757c09b
-    m_Address: Bow
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponDataSO
   - m_GUID: 9e9108e35e1581a42b6a5130f603fbd2
     m_Address: Assets/Resource/Player/PlayerFaceCamera.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 9b22fd4b32586ef47a0a8670fcbc4cc2
-    m_Address: Bow
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponIcon
   - m_GUID: e168f283855f63b45bbcd42119ada3b5
     m_Address: Assets/Resource/Etc/Floor.prefab
     m_ReadOnly: 0
@@ -52,11 +37,6 @@ MonoBehaviour:
     m_Address: Assets/Resource/Player/Player.controller
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 9e200c6d4e38a4841b0403a7f2bca03d
-    m_Address: Hand
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponProjectile
   - m_GUID: ee5354fc5eb68b44680396ea0e231f43
     m_Address: PlayerDataSO
     m_ReadOnly: 0
@@ -65,25 +45,10 @@ MonoBehaviour:
     m_Address: Assets/Resource/Etc/GoldCoin.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 9c2d8bb60ffcfca40a0fb137c34c379c
-    m_Address: Magic
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponIcon
   - m_GUID: 575c026d759feed4ca4358721018db49
     m_Address: Assets/Resource/Enemy/Gate.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 654715f29880d704a9a272ace81beb86
-    m_Address: Bow
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponProjectile
-  - m_GUID: 73a96a7d5287b5942a442b2f1f4de429
-    m_Address: Hand
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponDataSO
   - m_GUID: 9c4b41dae0eb91a49aea21d89b3a9d80
     m_Address: Assets/Resource/Etc/ManagerObject.prefab
     m_ReadOnly: 0
@@ -124,30 +89,10 @@ MonoBehaviour:
     m_Address: AttackIcon
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 989c852a0d54b1e4185951798d3bf50c
-    m_Address: Hand
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponFireSound
-  - m_GUID: 1cf811c0bc0086e4e83132dc1981d307
-    m_Address: Bow
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponFireSound
-  - m_GUID: 00b0861e2b6ff64429c22b43d17e25bf
-    m_Address: Magic
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponFireSound
   - m_GUID: bf166db5852e80d428229e48a7a7d4f6
     m_Address: Player
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 460b03d9333a85f4c97e2162649c64d5
-    m_Address: Magic
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponProjectile
   - m_GUID: 34776c45d3a8bfd40a3dfd0c7bd296ad
     m_Address: BGM
     m_ReadOnly: 0
@@ -164,11 +109,6 @@ MonoBehaviour:
     m_Address: MoveMark
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: cb25e0675997ca34d9d66fdba5277713
-    m_Address: Magic
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - WeaponDataSO
   - m_GUID: 14f6af3f6b4e64e4981251b561e348e6
     m_Address: WeaponRoom
     m_ReadOnly: 0

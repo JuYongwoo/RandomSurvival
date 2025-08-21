@@ -37,10 +37,10 @@ public class WeaponDatabase
 
     public WeaponDatabase()
     {
-        var soMap = Util.MapEnumToAddressables<Weapons, WeaponDataSO>("WeaponDataSO"); //라벨 통해서 맵 등록
-        var iconMap = Util.MapEnumToAddressables<Weapons, Sprite>("WeaponIcon");
-        var sfxMap = Util.MapEnumToAddressables<Weapons, AudioClip>("WeaponFireSound");
-        var projMap = Util.MapEnumToAddressables<Weapons, GameObject>("WeaponProjectile");
+        var soMap = Util.MapEnumToAddressablesByLabels<Weapons, WeaponDataSO>("WeaponDataSO"); //라벨 통해서 맵 등록
+        var iconMap = Util.MapEnumToAddressablesByLabels<Weapons, Sprite>("WeaponIcon");
+        var sfxMap = Util.MapEnumToAddressablesByLabels<Weapons, AudioClip>("WeaponFireSound");
+        var projMap = Util.MapEnumToAddressablesByLabels<Weapons, GameObject>("WeaponProjectile");
 
 
         _map = new Dictionary<Weapons, WeaponInfo>
