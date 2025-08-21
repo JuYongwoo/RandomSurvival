@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8030216595811403884}
   - component: {fileID: 5792144794044805224}
   m_Layer: 0
-  m_Name: ManagerObject
+  m_Name: Prefab_ManagerObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

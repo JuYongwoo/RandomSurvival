@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 190386361139228757}
   - component: {fileID: 190386361139228756}
   m_Layer: 0
-  m_Name: MainSceneObject
+  m_Name: Prefab_MainSceneObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

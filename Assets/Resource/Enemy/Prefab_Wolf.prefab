@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: -6547220302578465384}
   - component: {fileID: 6560788558308259798}
   m_Layer: 6
-  m_Name: Wolf
+  m_Name: Prefab_Wolf
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

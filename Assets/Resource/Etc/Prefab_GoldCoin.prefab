@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 4438673688905570738}
   - component: {fileID: 6718112420617802875}
   m_Layer: 0
-  m_Name: GoldCoin
+  m_Name: Prefab_GoldCoin
   m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
