@@ -24,7 +24,6 @@ public class PlayerStateMachine : MonoBehaviour
 {
     private PlayerState state;
 
-    public static Func<PlayerState> playerstate;
     public static Func<Animator> animator;
 
     private GameObject currentTarget;
@@ -43,7 +42,16 @@ public class PlayerStateMachine : MonoBehaviour
 
 
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = 0.01f;
+
+        InputManager.setAttackTarget = go => currentTarget = go;
+        InputManager.setDestination = dest => currentDestination = dest;
+        InputManager.setPlayerstate = SetPlayerState;
+    }
+
+    private void Start()
+    {
+        SetPlayerState(PlayerState.Idle);
+        agent.speed = ManagerObject.playerStatObj.PlayerStatDB.Current.currentMoveSpeed;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         agent.acceleration = 1000f;
@@ -51,10 +59,6 @@ public class PlayerStateMachine : MonoBehaviour
         agent.autoBraking = false;
         agent.stoppingDistance = 0f;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-
-        InputManager.setAttackTarget = go => currentTarget = go;
-        InputManager.setDestination = dest => currentDestination = dest;
-        InputManager.setPlayerstate = SetPlayerState;
     }
 
     private void Update()
@@ -239,13 +243,13 @@ public class PlayerStateMachine : MonoBehaviour
         if (currentTarget != null)
             transform.LookAt(currentTarget.transform.position);
 
-        ManagerObject.am.PlayAudioClip(ManagerObject.playerStatObj.WeaponStatDB.GetInfo(ManagerObject.playerStatObj.PlayerStatDB.Current.CurrentWeapon).FireSfx);
-        var particle = Instantiate(ManagerObject.playerStatObj.WeaponStatDB.GetInfo(ManagerObject.playerStatObj.PlayerStatDB.Current.CurrentWeapon).Projectile, transform.position + Vector3.up * 1.2f, Quaternion.identity);
+        ManagerObject.am.PlayAudioClip(ManagerObject.playerStatObj.WeaponStatDB.GetInfo(ManagerObject.playerStatObj.PlayerStatDB.Current.currentWeapon).FireSfx);
+        var particle = Instantiate(ManagerObject.playerStatObj.WeaponStatDB.GetInfo(ManagerObject.playerStatObj.PlayerStatDB.Current.currentWeapon).Projectile, transform.position + Vector3.up * 1.2f, Quaternion.identity);
         var attackParticle = particle.GetComponent<AttackProjectile>();
         if (attackParticle != null && currentTarget != null)
             attackParticle.SetTarget(currentTarget.transform);
 
-        yield return new WaitForSeconds(ManagerObject.playerStatObj.WeaponStatDB.GetInfo(ManagerObject.playerStatObj.PlayerStatDB.Current.CurrentWeapon).ReloadTime);
+        yield return new WaitForSeconds(ManagerObject.playerStatObj.WeaponStatDB.GetInfo(ManagerObject.playerStatObj.PlayerStatDB.Current.currentWeapon).ReloadTime);
 
         isAttacking = false;
     }
@@ -326,7 +330,7 @@ public class PlayerStateMachine : MonoBehaviour
     private bool IsInAttackRange(GameObject target)
     {
         if (target == null) return false;
-        return (transform.position - target.transform.position).sqrMagnitude <= Math.Pow(ManagerObject.playerStatObj.WeaponStatDB.GetInfo(ManagerObject.playerStatObj.PlayerStatDB.Current.CurrentWeapon).AttackRange, 2);
+        return (transform.position - target.transform.position).sqrMagnitude <= Math.Pow(ManagerObject.playerStatObj.WeaponStatDB.GetInfo(ManagerObject.playerStatObj.PlayerStatDB.Current.currentWeapon).AttackRange, 2);
     }
 
 

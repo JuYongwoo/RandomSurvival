@@ -31,12 +31,12 @@ public enum StatPanelEnum
         PlayerDatabase.OnChangeWeapon = changeWeapon;
     }
 
-    private void changeEXP(int currentEXP)
+    private void changeEXP(int currentEXP, int maxEXP)
     {
         if( statPanelMap[StatPanelEnum.LvText] == null
             || statPanelMap[StatPanelEnum.ExpText] == null) return;
-        statPanelMap[StatPanelEnum.LvText].GetComponent<Text>().text = $"Lv.{currentEXP / 100 + 1}";
-        statPanelMap[StatPanelEnum.ExpText].GetComponent<Text>().text = $"Exp {currentEXP%100}/{100}";
+        statPanelMap[StatPanelEnum.LvText].GetComponent<Text>().text = $"Lv.{currentEXP / maxEXP + 1}";
+        statPanelMap[StatPanelEnum.ExpText].GetComponent<Text>().text = $"Exp {currentEXP% maxEXP}/{maxEXP}";
     }
     
     private void changeWeapon(WeaponDatabase.Weapons weaponName)

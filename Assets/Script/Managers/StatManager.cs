@@ -26,12 +26,12 @@ public class StatManager
 
 
         // 현재 무기 정보 접근(중복 조회 방지용 로컬 함수)
-        WeaponDatabase.WeaponInfo Curr() => WeaponStatDB.GetInfo(PlayerStatDB.Current.CurrentWeapon);
+        WeaponDatabase.WeaponInfo Curr() => WeaponStatDB.GetInfo(PlayerStatDB.Current.currentWeapon);
 
 
         // 투사체 데미지 및 투사체 속도 설정
         AttackProjectile.getCurrentPlayerDamage = () =>
-            PlayerStatDB.Current.attackUpgrade * Curr().UpgradeDMGDelta + Curr().BaseDMG;
+            PlayerStatDB.Current.currentWeaponUpgrade * Curr().UpgradeDMGDelta + Curr().BaseDMG;
 
         AttackProjectile.getProjectileSpeed = () => Curr().ProjectileSpeed;
     }

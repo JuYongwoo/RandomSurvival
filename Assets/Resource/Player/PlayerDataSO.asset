@@ -12,15 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69d5554e12af2ce4697bf6330a314944, type: 3}
   m_Name: PlayerDataSO
   m_EditorClassIdentifier: 
-  BaseMoveSpeed: 30
-  SprintSpeed: 0
-  RotationSpeed: 0
-  RunSpeed: 0
-  MaxStamina: 0
-  StaminaRegenRate: 0
-  StaminaDrainRate: 0
-  SprintStaminaCost: 0
-  SprintDuration: 0
-  SprintCooldown: 0
-  MaxHP: 100
-  HitDamage: 0
+  CurrentMoveSpeed: 0.01
+  CurrentMaxHP: 100
+  CurrentHP: 100
+  CurrentEXP: 0
+  CurrentMaxEXP: 100
+  CurrentHPUpgrade: 0
+  CurrentWeaponUpgrade: 0
+  CurrentWeapon: 0
