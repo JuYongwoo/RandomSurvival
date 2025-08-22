@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AI;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 public enum PlayerState
 {

@@ -1,6 +1,3 @@
-using System.Threading.Tasks;
-using UnityEngine;
-using static PlayerDatabase;
 
 public class StatManager
 {

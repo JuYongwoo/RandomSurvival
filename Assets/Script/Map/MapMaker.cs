@@ -32,6 +32,9 @@ public class MapMaker : MonoBehaviour
         int centerRow = (rowCount % 2 == 0) ? (rowCount / 2 - 1) : (rowCount / 2);
         int centerCol = (colCount % 2 == 0) ? (colCount / 2 - 1) : (colCount / 2);
 
+        // 플레이어 시작 위치 저장 변수
+        Vector3 playerStartPosition = new Vector3();
+
         for (int i = 0; i < rowCount; i++)
         {
             for (int j = 0; j < MapStrings[i].Count; j++)
@@ -39,13 +42,14 @@ public class MapMaker : MonoBehaviour
                 float x = (i - centerRow) * 22f;
                 float z = (j - centerCol) * 22f;
 
-                if (MapStrings[i][j] == "o")
+                if (MapStrings[i][j] == "o") //Room 라벨이면서 key값이 MapStrings[i][j]인 프리팹을 addressabble로 소환하도록 변경해야함
                 {
                     Instantiate(normalRoomPrefab, new Vector3(z, 0f, x), Quaternion.identity, this.transform);
                 }
                 else if (MapStrings[i][j] == "s")
                 {
                     Instantiate(startRoomPrefab, new Vector3(z, 0f, x), Quaternion.identity, this.transform);
+                    playerStartPosition = new Vector3(z, 0f, x); // 플레이어 시작 위치 저장
                 }
                 else if (MapStrings[i][j] == "w")
                 {
@@ -54,9 +58,9 @@ public class MapMaker : MonoBehaviour
             }
         }
 
-        Instantiate(playerPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity);
-
         GetComponent<NavMeshSurface>().BuildNavMesh();
+
+        Instantiate(playerPrefab, playerStartPosition, Quaternion.identity);
     }
 
     private void SpawnRooms() //여기서 기획적으로 랜덤으로 방을 생성해야 할 것으로 보임

@@ -1,9 +1,5 @@
 using System;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
-using static AudioManager;
-using static WeaponDatabase;
 public class PlayerDatabase
 {
 
@@ -42,8 +38,7 @@ public class PlayerDatabase
 
     public PlayerDatabase()
     {
-        PlayerDataSO playerData = new PlayerDataSO();
-        playerData = Addressables.LoadAssetAsync<PlayerDataSO>("PlayerDataSO").WaitForCompletion();
+        var playerData = Addressables.LoadAssetAsync<PlayerDataSO>("PlayerDataSO").WaitForCompletion();
 
         Current = new PlayerCurrentStat(
             playerData.CurrentMaxHP,

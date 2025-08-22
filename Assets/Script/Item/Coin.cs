@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using static AudioManager;
 
 public class Coin : MonoBehaviour {
 
