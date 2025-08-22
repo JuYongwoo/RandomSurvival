@@ -23,6 +23,16 @@ public class MapMaker : MonoBehaviour
 
     private void Start()
     {
+
+        //TODO JYW 2025-08-22
+        //Addressable 라벨"Room"으로 등록된 애들을 전부 찾고
+        //그 라벤들 의 key값을 저장
+        //s, o, w key값이 있다면
+        //csv에서 s, o, w 값과 위 key값을 매칭시켜 소환
+        //이렇게 하면 나중에 g, p 등 추가할 때 csv와 리소스만 추가하면 자동 적용이 가능
+        /////////////////////
+
+
         int rowCount = MapStrings.Count;
         int colCount = 0;
         for (int i = 0; i < rowCount; i++)
@@ -33,7 +43,7 @@ public class MapMaker : MonoBehaviour
         int centerCol = (colCount % 2 == 0) ? (colCount / 2 - 1) : (colCount / 2);
 
         // 플레이어 시작 위치 저장 변수
-        Vector3 playerStartPosition = new Vector3();
+        GameObject playerStartRoom = new GameObject();
 
         for (int i = 0; i < rowCount; i++)
         {
@@ -48,8 +58,7 @@ public class MapMaker : MonoBehaviour
                 }
                 else if (MapStrings[i][j] == "s")
                 {
-                    Instantiate(startRoomPrefab, new Vector3(z, 0f, x), Quaternion.identity, this.transform);
-                    playerStartPosition = new Vector3(z, 0f, x); // 플레이어 시작 위치 저장
+                    playerStartRoom = Instantiate(startRoomPrefab, new Vector3(z, 0f, x), Quaternion.identity, this.transform);
                 }
                 else if (MapStrings[i][j] == "w")
                 {
@@ -60,7 +69,7 @@ public class MapMaker : MonoBehaviour
 
         GetComponent<NavMeshSurface>().BuildNavMesh();
 
-        Instantiate(playerPrefab, playerStartPosition, Quaternion.identity);
+        Instantiate(playerPrefab, playerStartRoom.transform.position, Quaternion.identity);
     }
 
     private void SpawnRooms() //여기서 기획적으로 랜덤으로 방을 생성해야 할 것으로 보임
